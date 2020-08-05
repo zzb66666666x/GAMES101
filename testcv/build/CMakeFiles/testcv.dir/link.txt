@@ -1,0 +1,3 @@
+D:\CMake\bin\cmake.exe -E rm -f CMakeFiles\testcv.dir/objects.a
+D:\MinGW\TDM64GCC\bin\ar.exe cr CMakeFiles\testcv.dir/objects.a @CMakeFiles\testcv.dir\objects1.rsp
+D:\MinGW\TDM64GCC\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\testcv.dir/objects.a -Wl,--no-whole-archive -o testcv.exe -Wl,--out-implib,libtestcv.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\testcv.dir\linklibs.rsp
