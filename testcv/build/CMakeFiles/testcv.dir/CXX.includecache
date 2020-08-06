@@ -1028,12 +1028,8 @@ D:/CodingLibs/opencv/sources/modules/videoio/include/opencv2/videoio.hpp
 opencv2/core.hpp
 D:/CodingLibs/opencv/sources/modules/videoio/include/opencv2/opencv2/core.hpp
 
-D:/MyCode/Cpp/GAMES101/testcv/main.cpp
-stdio.h
--
+D:/Mycode/Cpp/GAMES101/testcv/main.cpp
 iostream
--
-stdlib.h
 -
 opencv2/opencv.hpp
 -

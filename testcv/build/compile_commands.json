@@ -1,0 +1,7 @@
+[
+{
+  "directory": "D:/Mycode/Cpp/GAMES101/testcv/build",
+  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe  @CMakeFiles/testcv.dir/includes_CXX.rsp -g -std=gnu++17 -o CMakeFiles\\testcv.dir\\main.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\testcv\\main.cpp",
+  "file": "D:/Mycode/Cpp/GAMES101/testcv/main.cpp"
+}
+]
