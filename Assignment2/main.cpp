@@ -6,6 +6,8 @@
 #include "Triangle.hpp"
 
 constexpr double MY_PI = 3.1415926;
+using std::cout;
+using std::endl;
 
 Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
 {
@@ -31,8 +33,28 @@ Eigen::Matrix4f get_model_matrix(float rotation_angle)
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
 {
     // TODO: Copy-paste your implementation from the previous assignment.
-    Eigen::Matrix4f projection;
-
+    Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
+    float t = tan(eye_fov/2) * abs(zNear);
+    float b = -t;
+    float r = aspect_ratio * t;
+    float l = -r;
+    Eigen::Matrix4f trans;
+    Eigen::Matrix4f scale;
+    trans<<1,0,0,(-(r+l)/2),
+           0,1,0,(-(t+b)/2),
+           0,0,1,(-(zNear+zFar)/2),
+           0,0,0,1;
+    scale<<(2/(r-l)),0,0,0,
+           0,(2/(t-b)),0,0,
+           0,0,(2/(zNear-zFar)),0,
+           0,0,0,1;
+    Eigen::Matrix4f ortho = scale * trans;
+    Eigen::Matrix4f persp;
+    persp<<zNear, 0,0,0,
+           0,zNear,0,0,
+           0,0,zFar+zNear,-(zFar*zNear),
+           0,0,1,0;
+    projection = ortho * persp;
     return projection;
 }
 
@@ -48,11 +70,17 @@ int main(int argc, const char** argv)
         filename = std::string(argv[1]);
     }
 
+    cout<<"rasterizer initialization"<<endl;
     rst::rasterizer r(700, 700);
 
+    cout<<"getting eye position"<<endl;
     Eigen::Vector3f eye_pos = {0,0,5};
 
 
+    //define two triangles which contains 6 vertices
+    //we need a vector of vertices and also a vector of indices 
+    //to tell the order or vertices within one triangle
+    cout<<"defining triangles"<<endl;
     std::vector<Eigen::Vector3f> pos
             {
                     {2, 0, -2},
@@ -69,6 +97,7 @@ int main(int argc, const char** argv)
                     {3, 4, 5}
             };
 
+    //two triangles, 6 vertices, need 6 colors
     std::vector<Eigen::Vector3f> cols
             {
                     {217.0, 238.0, 185.0},
@@ -79,6 +108,8 @@ int main(int argc, const char** argv)
                     {185.0, 217.0, 238.0}
             };
 
+    //load the vertices and its index and color into rasterizer
+    cout<<"loading information into rasterizer"<<endl;
     auto pos_id = r.load_positions(pos);
     auto ind_id = r.load_indices(ind);
     auto col_id = r.load_colors(cols);
@@ -88,12 +119,15 @@ int main(int argc, const char** argv)
 
     if (command_line)
     {
+        cout<<"using command line"<<endl;
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
-
+        
+        cout<<"loading matrices for MVP transformation"<<endl;
         r.set_model(get_model_matrix(angle));
         r.set_view(get_view_matrix(eye_pos));
         r.set_projection(get_projection_matrix(45, 1, 0.1, 50));
 
+        cout<<"draw triangles by rasteriazer"<<endl;
         r.draw(pos_id, ind_id, col_id, rst::Primitive::Triangle);
         cv::Mat image(700, 700, CV_32FC3, r.frame_buffer().data());
         image.convertTo(image, CV_8UC3, 1.0f);
@@ -104,14 +138,17 @@ int main(int argc, const char** argv)
         return 0;
     }
 
+    cout<<"real time operation mode"<<endl;
     while(key != 27)
     {
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
 
+        cout<<"loading matrices for MVP transformation"<<endl;
         r.set_model(get_model_matrix(angle));
         r.set_view(get_view_matrix(eye_pos));
         r.set_projection(get_projection_matrix(45, 1, 0.1, 50));
 
+        cout<<"draw triangles by rasteriazer"<<endl;
         r.draw(pos_id, ind_id, col_id, rst::Primitive::Triangle);
 
         cv::Mat image(700, 700, CV_32FC3, r.frame_buffer().data());

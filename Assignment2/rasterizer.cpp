@@ -9,7 +9,10 @@
 #include <opencv2/opencv.hpp>
 #include <math.h>
 
+using std::cout;
+using std::endl;
 
+//link the two triangles with one id number 
 rst::pos_buf_id rst::rasterizer::load_positions(const std::vector<Eigen::Vector3f> &positions)
 {
     auto id = get_next_id();
@@ -55,16 +58,65 @@ static std::tuple<float, float, float> computeBarycentric2D(float x, float y, co
 
 void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf_id col_buffer, Primitive type)
 {
-    auto& buf = pos_buf[pos_buffer.pos_id];
-    auto& ind = ind_buf[ind_buffer.ind_id];
-    auto& col = col_buf[col_buffer.col_id];
+    //fetch three important components (aka. vertices, indices, color) from three hash maps
+    //hash maps are: pos_buf，ind_buf，col_buf
+    
+    /************************************************************************************
+    * the 3D model may also be formed by different components
+    * for example, a scene on a desk, we may need to draw a cake and few cups of coffee
+    * these object represents different terms inside the hash tables
+    * we previously registered all the objects we need to draw in the main()
+    * by calling draw() once, we can draw one small object
+    * therefore, the three hash maps inside rasterizer contains everything about a 3D scene
+    * 
+    * one object(eg. a cup of coffee) is also formed by many triangles
+    * so we have to pass in id numbers to fetch terms from hash maps
+    * so the buf, ind, col below may mean all the info. needed for drawing a cup
+    * this cup is described by vertices, colors and even normal vectors (if necessary)
+    *************************************************************************************/
+    auto& buf = pos_buf[pos_buffer.pos_id]; // a std vector containing 6 vertices
+    auto& ind = ind_buf[ind_buffer.ind_id]; // a std vector contating two vectors of indices
+    auto& col = col_buf[col_buffer.col_id]; // a std vector containing 6 vertices
+
+    /*************************************************************************************************************
+    * How to use buf, ind, col?
+    * col, buf are two databases, they contain all the information(position&color) needed for this draw operation
+    * ind is a data structure to store index numbers, the number of Eigen::Vector3i inside determines the number
+    * of triangles needed to draw for one draw() operation
+    * illustration:
+    *   ind: {0,1,2}, {3,4,5}, ..., {102,232,342}   <-- all the triangles
+    *       for the first triangle {0,1,2}:
+    *             0            1            2
+    *            / \          / \  /-------/ \
+    *           /   \-------/----\/-----------\---------\
+    *          /          /      /\-----\      \--\      \
+    *         /         /       /        \         \      \
+    *   col: RGB,RGB,RGB,...,RGB   buf: xyz, xyz, xyz,...,xyz
+    * 
+    *   after the first triangle, we will loop through the rest and build all the triangles
+    **************************************************************************************************************/
 
     float f1 = (50 - 0.1) / 2.0;
     float f2 = (50 + 0.1) / 2.0;
 
     Eigen::Matrix4f mvp = projection * view * model;
+
+    //Remember that ind is a std vector containing two Eigen::Vector3i objects
+    //therefore this for loop goes two times
     for (auto& i : ind)
     {
+        /*********************************************************************************************************
+        * type of i is Eigen::Vector3i
+        * i[j] (0<=j<=2), gives the place where you can find the correct position/color information
+        * for example, the triangle I want to draw has indices {67,80,101}, then i = [67,80,101]
+        * i[0],i[1],i[2] are index numbers for one triangle's three vertices
+        * while the buf and col are like two database for all possible RGB values and positions in space
+        * Consequently:
+        * col[i[0]] means col[67], by looking into the 67'th position of std vector col, you get the RGB values out
+        ***********************************************************************************************************/
+
+        cout<<"drawing the first triangle"<<endl;
+        cout<<"doing transformation to move into screen space"<<endl;
         Triangle t;
         Eigen::Vector4f v[] = {
                 mvp * to_vec4(buf[i[0]], 1.0f),
@@ -97,6 +149,8 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
         t.setColor(0, col_x[0], col_x[1], col_x[2]);
         t.setColor(1, col_y[0], col_y[1], col_y[2]);
         t.setColor(2, col_z[0], col_z[1], col_z[2]);
+        
+        cout<<"finished setting information of one triangle, ready to rasterize it"<<endl;
 
         rasterize_triangle(t);
     }
@@ -107,6 +161,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
     auto v = t.toVector4();
     
     // TODO : Find out the bounding box of current triangle.
+
     // iterate through the pixel and find if the current pixel is inside the triangle
 
     // If so, use the following code to get the interpolated z value.
@@ -133,6 +188,13 @@ void rst::rasterizer::set_projection(const Eigen::Matrix4f& p)
     projection = p;
 }
 
+/***********************************
+* binary code of rst::Buffers buff
+* 11: clear all, including frame_buf and depth_buf
+* 00: do nothing
+* 01: only clear the frame_buf
+* 10: only clear the depth_buf
+************************************/
 void rst::rasterizer::clear(rst::Buffers buff)
 {
     if ((buff & rst::Buffers::Color) == rst::Buffers::Color)

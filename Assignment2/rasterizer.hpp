@@ -14,8 +14,8 @@ namespace rst
 {
     enum class Buffers
     {
-        Color = 1,
-        Depth = 2
+        Color = 1,  //binary 01
+        Depth = 2   //binary 10
     };
 
     inline Buffers operator|(Buffers a, Buffers b)
@@ -57,11 +57,14 @@ namespace rst
     class rasterizer
     {
     public:
+        //constructor
         rasterizer(int w, int h);
+        //store the information for 3D model(fake model actually) by hash table for quick IO
         pos_buf_id load_positions(const std::vector<Eigen::Vector3f>& positions);
         ind_buf_id load_indices(const std::vector<Eigen::Vector3i>& indices);
         col_buf_id load_colors(const std::vector<Eigen::Vector3f>& colors);
 
+        //MVP transformation needed matrices
         void set_model(const Eigen::Matrix4f& m);
         void set_view(const Eigen::Matrix4f& v);
         void set_projection(const Eigen::Matrix4f& p);
@@ -75,8 +78,10 @@ namespace rst
         std::vector<Eigen::Vector3f>& frame_buffer() { return frame_buf; }
 
     private:
+        //draw traingle's boundary
         void draw_line(Eigen::Vector3f begin, Eigen::Vector3f end);
 
+        //By this function, we can draw solid triangles by rasterization!!!!
         void rasterize_triangle(const Triangle& t);
 
         // VERTEX SHADER -> MVP -> Clipping -> /.W -> VIEWPORT -> DRAWLINE/DRAWTRI -> FRAGSHADER
