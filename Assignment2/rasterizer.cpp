@@ -102,7 +102,9 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
     Eigen::Matrix4f mvp = projection * view * model;
 
     //Remember that ind is a std vector containing two Eigen::Vector3i objects
-    //therefore this for loop goes two times
+    //therefore this for loop goes two times for this project
+    //also, in this project, the scene we draw is actually composed of 2 triangles
+    //we draw them within one rst::draw() operation
     for (auto& i : ind)
     {
         /*********************************************************************************************************
