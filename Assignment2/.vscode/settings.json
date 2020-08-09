@@ -1,3 +1,11 @@
 {
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "files.associations": {
+        "*.tcc": "cpp",
+        "complex": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "functional": "cpp",
+        "iostream": "cpp"
+    }
 }

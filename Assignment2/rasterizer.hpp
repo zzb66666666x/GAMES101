@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include<stdio.h>
 #include <eigen3/Eigen/Eigen>
 #include <algorithm>
 #include "global.hpp"
@@ -78,8 +78,8 @@ namespace rst
         std::vector<Eigen::Vector3f>& frame_buffer() { return frame_buf; }
 
     private:
-        //draw traingle's boundary
-        void draw_line(Eigen::Vector3f begin, Eigen::Vector3f end);
+        //draw traingle's boundary, not necessary for this proj.
+        //void draw_line(Eigen::Vector3f begin, Eigen::Vector3f end);
 
         //By this function, we can draw solid triangles by rasterization!!!!
         void rasterize_triangle(const Triangle& t);

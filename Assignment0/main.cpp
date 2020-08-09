@@ -55,5 +55,19 @@ int main(){
     vertices[2] << 7,8,9;
     std::cout<<"the 1th vertex is: \n"<<vertices[1]<<std::endl;
 
+    //index of Vectors
+    std::cout<<"testing index of the vectors\n";
+    Eigen::Matrix<float, 10, 1> array;
+    array<<0,1,2,3,4,5,6,7,8,9;
+    std::cout<<array(8,0)<<std::endl;
+    std::cout<<array[8]<<std::endl;
+    std::cout<<array(8)<<std::endl;
+    //Eigen supports some short cuts for vector with length within [2,4]
+    Eigen::Vector4f vec4d(0,1,2,3);  //supports initialization with constructor!
+    //position 0,1,2,3 has short cuts: x(), y(), z(), w()
+    std::cout<<vec4d.w()<<std::endl;
+    std::cout<<"modify vector\n";
+    vec4d.x() = 777;
+    std::cout<<vec4d;
     return 0;
 }
