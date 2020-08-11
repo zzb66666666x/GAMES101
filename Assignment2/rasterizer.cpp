@@ -130,11 +130,8 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
     * illustration:
     *   ind: {0,1,2}, {3,4,5}, ..., {102,232,342}   <-- all the triangles
     *       for the first triangle {0,1,2}:
-    *             0            1            2
-    *            / \          / \  /-------/ \
-    *           /   \-------/----\/-----------\---------\
-    *          /          /      /\-----\      \--\      \
-    *         /         /       /        \         \      \
+    *             0               1               2
+    *       col[0],buf[0]   col[1],buf[1]   col[2],buf[2]
     *   col: RGB,RGB,RGB,...,RGB   buf: xyz, xyz, xyz,...,xyz
     * 
     *   after the first triangle, we will loop through the rest and build all the triangles
