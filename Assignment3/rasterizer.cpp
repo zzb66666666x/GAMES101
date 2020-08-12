@@ -45,13 +45,6 @@ rst::col_buf_id rst::rasterizer::load_normals(const std::vector<Eigen::Vector3f>
     return {id};
 }
 
-// not used in this project 
-static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector4f* v){
-    float c1 = (x*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*y + v[1].x()*v[2].y() - v[2].x()*v[1].y()) / (v[0].x()*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*v[0].y() + v[1].x()*v[2].y() - v[2].x()*v[1].y());
-    float c2 = (x*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*y + v[2].x()*v[0].y() - v[0].x()*v[2].y()) / (v[1].x()*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*v[1].y() + v[2].x()*v[0].y() - v[0].x()*v[2].y());
-    float c3 = (x*(v[0].y() - v[1].y()) + (v[1].x() - v[0].x())*y + v[0].x()*v[1].y() - v[1].x()*v[0].y()) / (v[2].x()*(v[0].y() - v[1].y()) + (v[1].x() - v[0].x())*v[2].y() + v[0].x()*v[1].y() - v[1].x()*v[0].y());
-    return {c1,c2,c3};
-}
 
 // not used in this project 
 // Bresenham's line drawing algorithm
@@ -160,6 +153,13 @@ auto to_vec4(const Eigen::Vector3f& v3, float w = 1.0f)
     return Vector4f(v3.x(), v3.y(), v3.z(), w);
 }
 
+static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector4f* v){
+    float c1 = (x*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*y + v[1].x()*v[2].y() - v[2].x()*v[1].y()) / (v[0].x()*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*v[0].y() + v[1].x()*v[2].y() - v[2].x()*v[1].y());
+    float c2 = (x*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*y + v[2].x()*v[0].y() - v[0].x()*v[2].y()) / (v[1].x()*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*v[1].y() + v[2].x()*v[0].y() - v[0].x()*v[2].y());
+    float c3 = (x*(v[0].y() - v[1].y()) + (v[1].x() - v[0].x())*y + v[0].x()*v[1].y() - v[1].x()*v[0].y()) / (v[2].x()*(v[0].y() - v[1].y()) + (v[1].x() - v[0].x())*v[2].y() + v[0].x()*v[1].y() - v[1].x()*v[0].y());
+    return {c1,c2,c3};
+}
+
 static bool insideTriangle(int x, int y, const Vector4f* _v){
     Vector3f v[3];
     for(int i=0;i<3;i++)
@@ -178,13 +178,27 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
     float f1 = (50 - 0.1) / 2.0;
     float f2 = (50 + 0.1) / 2.0;
 
+    /**************************************************************************
+    * Screen Space: MVP transformation
+    * World Space: RAW information with the eye position not in the origin 
+    * eyespace: the space after view and model transformation
+    * 
+    * Shading Program and interpolation should be done in the eyespace without 
+    * perspective projection (which will ruin the 3D structure of model)
+    * That's why the triangle's normal vectors don't get multiplied by the 
+    * projection matrix or the viewport matrix.
+    * Similarily, the calculation of Barycentric Coordinate should be done in 
+    * eyespace too, but it's somehow acceptable to use the <alpha, beta, gamma>
+    * returned from function computeBarycentric2D
+    ***************************************************************************/
+
     Eigen::Matrix4f mvp = projection * view * model;
     for (const auto& t:TriangleList)
     {
         /************************************************************************************
         * What is happending here?
         * pass in the list of triangles loaded from object file
-        * these triangles need to be processed by doing projection and all the transformation
+        * these triangles need to be processed by doing all the transformations
         * loop over these triangles and define new tiangles after transformation
         * finally, draw these triangles by rasterization and shading
         * 
@@ -203,9 +217,16 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
         //t is a pointer, define a newtri variable to keep *t
         Triangle newtri = *t;
 
-        //exec view & model transformation (without projection)
-        //drop the forth coordinate (must be 1, omit the proof) 
-        //and store the vectors (R^3) into variable viewspace_pos
+        /****************************************************************************************************
+        * make a copy of vertices before doing projection, store it in viewspace_pos
+        * the viewspace_pos will be useful in the shading process when calculating reflectance model
+        * we will use <alpha, beta, gamma> to interpolate a shading point in eyespace 
+        * THOUGH THERE ARE SOME ERRORS IN THIS METHOD
+        * the right way is to multiply the point (x,y,z,1) with inverse(M_projection)inverse(M_viewport)
+        * so that we get the real shading point and also the real barycentric coordinate <alpha, beta, gamma>
+        * then we interpolate normal vectors or texture coordinate ...
+        * BUT IT'S STILL OK TO USE FUNCTION computeBarycentric2D
+        *****************************************************************************************************/
         std::array<Eigen::Vector4f, 3> mm {
                 (view * model * t->v[0]),
                 (view * model * t->v[1]),
@@ -218,6 +239,7 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
 
         //exec mvp transformation for old triangle's vertices
         //and this time, the result will finally be kept by new triangle
+        //DON'T DO THE MVP TRANSFORMATION ON NORMAL VECTORS
         Eigen::Vector4f v[] = {
                 mvp * t->v[0],
                 mvp * t->v[1],
@@ -257,6 +279,7 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
 
         //Viewport transformation
         //loop over the vertices scale the each vertex v[j] to be inside screen space 
+        //DON'T DO THE VIEWPORT TRANSFORMATION ON NORMAL VECTORS
         for (auto & vert : v)
         {
             vert.x() = 0.5*width*(vert.x()+1.0);
@@ -296,7 +319,7 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
         newtri.setColor(1, 148,121.0,92.0);
         newtri.setColor(2, 148,121.0,92.0);
 
-        // Also pass view space vertice position
+        // Also pass view space vertice position, this will be useful for calculating eyespace(viewspace) shading point
         rasterize_triangle(newtri, viewspace_pos);
     }
 }
