@@ -12,6 +12,7 @@ using namespace Eigen;
 class Triangle{
 
 public:
+    //Note that this triangle now has vectors in R^4, not in R^3!!!!!!!
     Vector4f v[3]; /*the original coordinates of the triangle, v0, v1, v2 in counter clockwise order*/
     /*Per vertex values*/
     Vector3f color[3]; //color at each vertex;

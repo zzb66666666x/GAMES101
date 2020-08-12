@@ -101,11 +101,11 @@ int main(int argc, const char** argv)
     std::vector<Eigen::Vector3f> cols
             {
                     {25, 233, 43},
-                    {0, 231, 32},
-                    {213, 223, 223},
+                    {25, 233, 43},
+                    {25, 233, 43},
                     {189, 214, 155},
-                    {156, 10, 231},
-                    {123, 100, 221}
+                    {189, 214, 155},
+                    {189, 214, 155}
             };
 
     //load the vertices and its index and color into rasterizer

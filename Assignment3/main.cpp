@@ -50,8 +50,31 @@ Eigen::Matrix4f get_model_matrix(float angle)
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
 {
     // TODO: Use the same projection matrix from the previous assignments
-
+    Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
+    float t = tan(eye_fov/2) * abs(zNear);
+    float b = -t;
+    float r = aspect_ratio * t;
+    float l = -r;
+    Eigen::Matrix4f trans;
+    Eigen::Matrix4f scale;
+    trans<<1,0,0,(-(r+l)/2),
+           0,1,0,(-(t+b)/2),
+           0,0,1,(-(zNear+zFar)/2),
+           0,0,0,1;
+    scale<<(2/(r-l)),0,0,0,
+           0,(2/(t-b)),0,0,
+           0,0,(2/(zNear-zFar)),0,
+           0,0,0,1;
+    Eigen::Matrix4f ortho = scale * trans;
+    Eigen::Matrix4f persp;
+    persp<<zNear, 0,0,0,
+           0,zNear,0,0,
+           0,0,zFar+zNear,-(zFar*zNear),
+           0,0,1,0;
+    projection = ortho * persp;
+    return projection;
 }
+
 
 Eigen::Vector3f vertex_shader(const vertex_shader_payload& payload)
 {
@@ -240,17 +263,21 @@ Eigen::Vector3f bump_fragment_shader(const fragment_shader_payload& payload)
 
 int main(int argc, const char** argv)
 {
+    //use a list to store all the triangles 
     std::vector<Triangle*> TriangleList;
 
-    float angle = 140.0;
+    float angle = 140.0;    //for adjusting positions of the object
     bool command_line = false;
 
+    //specify which 3D model to draw
     std::string filename = "output.png";
     objl::Loader Loader;
-    std::string obj_path = "../models/spot/";
+    std::string obj_path = "./models/spot/";
 
-    // Load .obj File
-    bool loadout = Loader.LoadFile("../models/spot/spot_triangulated_good.obj");
+    // Load .obj File (default: ./model/spot)
+    //How to load? 
+    //Input: obj file   Output: a list of triangles in space (before MVP transform)
+    bool loadout = Loader.LoadFile("./models/spot/spot_triangulated_good.obj");
     for(auto mesh:Loader.LoadedMeshes)
     {
         for(int i=0;i<mesh.Vertices.size();i+=3)
@@ -260,24 +287,51 @@ int main(int argc, const char** argv)
             {
                 t->setVertex(j,Vector4f(mesh.Vertices[i+j].Position.X,mesh.Vertices[i+j].Position.Y,mesh.Vertices[i+j].Position.Z,1.0));
                 t->setNormal(j,Vector3f(mesh.Vertices[i+j].Normal.X,mesh.Vertices[i+j].Normal.Y,mesh.Vertices[i+j].Normal.Z));
+                /***************************************************************************************************************
+                * One thing to note here:
+                * We set the texture coordinate for each vertex of triangle but we don't know the actual texture image yet.
+                * Basically, I think the 3D object has already taken the responsibility of defining the 1-1 map from 3D space
+                * to 2D image. 
+                * Later, we can specify a path to the texture image, and that way, we can fetch colors from texture image easily.
+                * 
+                * What't missing here?
+                * The color of vetices is still unknown!!!!!!!!!!!!!
+                * We will define it in rasterizer's function draw()
+                ****************************************************************************************************************/
                 t->setTexCoord(j,Vector2f(mesh.Vertices[i+j].TextureCoordinate.X, mesh.Vertices[i+j].TextureCoordinate.Y));
             }
             TriangleList.push_back(t);
         }
     }
 
+    //initialize rasterizer
     rst::rasterizer r(700, 700);
 
+    //use the height map as texture(default value)
     auto texture_path = "hmap.jpg";
+    //pass the texture object into the rasterizer
+    //the texture object get initialized by passing texture image path to the constructor
+    //by passing the path of texture image, opencv will read the image and transfer it to useful data
     r.set_texture(Texture(obj_path + texture_path));
 
+    /*********************************************************************************************
+    * new feature of C++11
+    * declaration: template <class T> function
+    * by using std::function, we can package the idea of function pointer
+    * active_shader is a pointer to real shader function, but we don't need to use * to address it
+    * function active_shader:
+    * @params: fragment_shader_payload
+    * @output: Eigen::Vector3f, aka. the rgb info.
+    **********************************************************************************************/
     std::function<Eigen::Vector3f(fragment_shader_payload)> active_shader = phong_fragment_shader;
 
     if (argc >= 2)
     {
+        //we pass in enough parameters to change default shader and texture path
         command_line = true;
         filename = std::string(argv[1]);
 
+        //reset the texture object and pass them inside rasterizer
         if (argc == 3 && std::string(argv[2]) == "texture")
         {
             std::cout << "Rasterizing using the texture shader\n";
@@ -307,21 +361,29 @@ int main(int argc, const char** argv)
         }
     }
 
+    //finished setting up the 3D model and the shader
+
+    //define camera position in world coordinate
     Eigen::Vector3f eye_pos = {0,0,10};
 
-    r.set_vertex_shader(vertex_shader);
-    r.set_fragment_shader(active_shader);
+    //load shaders to rasterizer
+    r.set_vertex_shader(vertex_shader);     //vertex shader
+    r.set_fragment_shader(active_shader);   //fragment shader
 
     int key = 0;
     int frame_count = 0;
 
+    //get output image
     if (command_line)
     {
+        //basic pipeline before drawing things
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
         r.set_model(get_model_matrix(angle));
         r.set_view(get_view_matrix(eye_pos));
         r.set_projection(get_projection_matrix(45.0, 1, 0.1, 50));
 
+        //ready to draw
+        //pass in the list of triangles to rasterizer's function draw
         r.draw(TriangleList);
         cv::Mat image(700, 700, CV_32FC3, r.frame_buffer().data());
         image.convertTo(image, CV_8UC3, 1.0f);
@@ -332,6 +394,7 @@ int main(int argc, const char** argv)
         return 0;
     }
 
+    //open a window and do real time rendering
     while(key != 27)
     {
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);

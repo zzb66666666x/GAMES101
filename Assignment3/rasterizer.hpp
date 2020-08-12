@@ -103,8 +103,9 @@ namespace rst
         std::map<int, std::vector<Eigen::Vector3f>> col_buf;
         std::map<int, std::vector<Eigen::Vector3f>> nor_buf;
 
+        //store a texture object (set by main())
         std::optional<Texture> texture;
-
+        //store function reference (some kind of pointer) to two basic types of shader function (defined in main())
         std::function<Eigen::Vector3f(fragment_shader_payload)> fragment_shader;
         std::function<Eigen::Vector3f(vertex_shader_payload)> vertex_shader;
 

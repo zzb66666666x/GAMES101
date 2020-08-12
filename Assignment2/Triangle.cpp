@@ -46,6 +46,7 @@ void Triangle::setTexCoord(int ind, float s, float t) {
 std::array<Vector4f, 3> Triangle::toVector4() const
 {   //convert the who triangle's three vertices into R^4 space
     std::array<Eigen::Vector4f, 3> res;
+    //std transform: execute the function provided (by passing the function as param) for v and store the output in res
     std::transform(std::begin(v), std::end(v), res.begin(), [](auto& vec) { return Eigen::Vector4f(vec.x(), vec.y(), vec.z(), 1.f); });
     return res;
 }

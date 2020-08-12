@@ -7,7 +7,7 @@
 #include <opencv2/opencv.hpp>
 #include <math.h>
 
-
+// not used in this project 
 rst::pos_buf_id rst::rasterizer::load_positions(const std::vector<Eigen::Vector3f> &positions)
 {
     auto id = get_next_id();
@@ -16,6 +16,7 @@ rst::pos_buf_id rst::rasterizer::load_positions(const std::vector<Eigen::Vector3
     return {id};
 }
 
+// not used in this project 
 rst::ind_buf_id rst::rasterizer::load_indices(const std::vector<Eigen::Vector3i> &indices)
 {
     auto id = get_next_id();
@@ -24,6 +25,7 @@ rst::ind_buf_id rst::rasterizer::load_indices(const std::vector<Eigen::Vector3i>
     return {id};
 }
 
+// not used in this project 
 rst::col_buf_id rst::rasterizer::load_colors(const std::vector<Eigen::Vector3f> &cols)
 {
     auto id = get_next_id();
@@ -32,6 +34,7 @@ rst::col_buf_id rst::rasterizer::load_colors(const std::vector<Eigen::Vector3f> 
     return {id};
 }
 
+// not used in this project 
 rst::col_buf_id rst::rasterizer::load_normals(const std::vector<Eigen::Vector3f>& normals)
 {
     auto id = get_next_id();
@@ -42,7 +45,15 @@ rst::col_buf_id rst::rasterizer::load_normals(const std::vector<Eigen::Vector3f>
     return {id};
 }
 
+// not used in this project 
+static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector4f* v){
+    float c1 = (x*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*y + v[1].x()*v[2].y() - v[2].x()*v[1].y()) / (v[0].x()*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*v[0].y() + v[1].x()*v[2].y() - v[2].x()*v[1].y());
+    float c2 = (x*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*y + v[2].x()*v[0].y() - v[0].x()*v[2].y()) / (v[1].x()*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*v[1].y() + v[2].x()*v[0].y() - v[0].x()*v[2].y());
+    float c3 = (x*(v[0].y() - v[1].y()) + (v[1].x() - v[0].x())*y + v[0].x()*v[1].y() - v[1].x()*v[0].y()) / (v[2].x()*(v[0].y() - v[1].y()) + (v[1].x() - v[0].x())*v[2].y() + v[0].x()*v[1].y() - v[1].x()*v[0].y());
+    return {c1,c2,c3};
+}
 
+// not used in this project 
 // Bresenham's line drawing algorithm
 void rst::rasterizer::draw_line(Eigen::Vector3f begin, Eigen::Vector3f end)
 {
@@ -163,48 +174,81 @@ static bool insideTriangle(int x, int y, const Vector4f* _v){
     return false;
 }
 
-static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector4f* v){
-    float c1 = (x*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*y + v[1].x()*v[2].y() - v[2].x()*v[1].y()) / (v[0].x()*(v[1].y() - v[2].y()) + (v[2].x() - v[1].x())*v[0].y() + v[1].x()*v[2].y() - v[2].x()*v[1].y());
-    float c2 = (x*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*y + v[2].x()*v[0].y() - v[0].x()*v[2].y()) / (v[1].x()*(v[2].y() - v[0].y()) + (v[0].x() - v[2].x())*v[1].y() + v[2].x()*v[0].y() - v[0].x()*v[2].y());
-    float c3 = (x*(v[0].y() - v[1].y()) + (v[1].x() - v[0].x())*y + v[0].x()*v[1].y() - v[1].x()*v[0].y()) / (v[2].x()*(v[0].y() - v[1].y()) + (v[1].x() - v[0].x())*v[2].y() + v[0].x()*v[1].y() - v[1].x()*v[0].y());
-    return {c1,c2,c3};
-}
-
 void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
-
     float f1 = (50 - 0.1) / 2.0;
     float f2 = (50 + 0.1) / 2.0;
 
     Eigen::Matrix4f mvp = projection * view * model;
     for (const auto& t:TriangleList)
     {
+        /************************************************************************************
+        * What is happending here?
+        * pass in the list of triangles loaded from object file
+        * these triangles need to be processed by doing projection and all the transformation
+        * loop over these triangles and define new tiangles after transformation
+        * finally, draw these triangles by rasterization and shading
+        * 
+        * Something to notice:
+        * compared with previous projects, the vertices in class triangle is now in R^4
+        * but t->v used to be an array of Vector3f in assignment 1&2
+        * that's why the code below is a little bit different
+        * 
+        * What's in the class triangle?
+        * three vertices in R^4 (forth coordinate should be 1)
+        * three color vectors in R^3
+        * three texture coordinate vectors in R^2
+        * three normal vectors in R^3
+        *************************************************************************************/
+        
+        //t is a pointer, define a newtri variable to keep *t
         Triangle newtri = *t;
 
+        //exec view & model transformation (without projection)
+        //drop the forth coordinate (must be 1, omit the proof) 
+        //and store the vectors (R^3) into variable viewspace_pos
         std::array<Eigen::Vector4f, 3> mm {
                 (view * model * t->v[0]),
                 (view * model * t->v[1]),
                 (view * model * t->v[2])
         };
-
         std::array<Eigen::Vector3f, 3> viewspace_pos;
-
         std::transform(mm.begin(), mm.end(), viewspace_pos.begin(), [](auto& v) {
             return v.template head<3>();
         });
 
+        //exec mvp transformation for old triangle's vertices
+        //and this time, the result will finally be kept by new triangle
         Eigen::Vector4f v[] = {
                 mvp * t->v[0],
                 mvp * t->v[1],
                 mvp * t->v[2]
         };
-        //Homogeneous division
         for (auto& vec : v) {
+            //Homogeneous division (make sure that the forth coordinate is 1)
             vec.x()/=vec.w();
             vec.y()/=vec.w();
             vec.z()/=vec.w();
         }
 
+        
+        //Since the 3D model object also contains the normal vectors for each vertex,
+        //so we cannot skip the transformation of normal vectors !!!
+        //But what is the mathematical facts behind it?
         Eigen::Matrix4f inv_trans = (view * model).inverse().transpose();
+        /******************************************************************************
+        * Matrix inv_trans
+        * Full name: the inverse transpose matrix of viewspace transformatin.
+        * When doing transformation from world space to eye space, we need matrix M
+        * M = view * model, we don't multiply the projection matrix here. If we do, it
+        * will scale everything to canonical cube, that's not the space we see, but the 
+        * space that can guatantee people will see 3D structure within screen.
+        * Take normal vector n and a vector inside triangle v,
+        * since transpose(n)*v = 0,
+        * then transpose(n)*inverse(M)*M*v = 0,
+        * since M*v is the vector in eyespace, call it v', we want transpose(n')*b' = 0,
+        * so transpose(n') = transpose(n)*inverse(M) !!!
+        * Finally, n' = transpose(inverse(M)) * n
+        *******************************************************************************/
         Eigen::Vector4f n[] = {
                 inv_trans * to_vec4(t->normal[0], 0.0f),
                 inv_trans * to_vec4(t->normal[1], 0.0f),
@@ -212,6 +256,7 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
         };
 
         //Viewport transformation
+        //loop over the vertices scale the each vertex v[j] to be inside screen space 
         for (auto & vert : v)
         {
             vert.x() = 0.5*width*(vert.x()+1.0);
@@ -219,18 +264,34 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
             vert.z() = vert.z() * f1 + f2;
         }
 
+        //finish everything about transformation, ready to modify newtri
+        //We don't create new class triangle objects !!!
+        
+        /**********************************
+        * List of what to modify:
+        * Change vertices
+        * Change normal vectors
+        * Newly define colors for vertices 
+        ***********************************/
+
         for (int i = 0; i < 3; ++i)
         {
             //screen space coordinates
+            //don't have to drop the 4'th coordinate since the declaration of class triangle
+            //shows that vertices should be vectors in R^4
             newtri.setVertex(i, v[i]);
         }
 
         for (int i = 0; i < 3; ++i)
         {
             //view space normal
+            //drop the 4'th coordinate since normal vectors stored in newtri should be in R^3
             newtri.setNormal(i, n[i].head<3>());
         }
 
+        //texture coordinates don't affected by any transformation, of course
+
+        //set the color of vertices and finish modifying triangles
         newtri.setColor(0, 148,121.0,92.0);
         newtri.setColor(1, 148,121.0,92.0);
         newtri.setColor(2, 148,121.0,92.0);
