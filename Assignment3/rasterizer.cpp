@@ -380,15 +380,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t, const std::array<Eig
                 float Z = 1.0 / (alpha / t.v[0].w() + beta / t.v[1].w() + gamma / t.v[2].w());
                 float zp = alpha * t.v[0].z() / t.v[0].w() + beta * t.v[1].z() / t.v[1].w() + gamma * t.v[2].z() / t.v[2].w();
                 zp *= Z;
-                // TODO : set the current pixel (use the set_pixel function) to the color of the triangle 
-                // (use getColor function) if it should be painted.
-                point<<(float)x, (float)y, z_interpolated;
-                rgb = t.color[0]*255;
-                //z-buffer algorithm
-                int ind = (height-1-y)*width + x;
-                if (depth_buf[ind]>abs(z_interpolated)){
-                    set_pixel(point, rgb);
-                }
+
             }
         }
     }
