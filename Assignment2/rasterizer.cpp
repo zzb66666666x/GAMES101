@@ -228,8 +228,8 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
                 // (use getColor function) if it should be painted.
                 point<<(float)x, (float)y, z_interpolated;
                 rgb = t.getColor();
-                int ind = (height-1-y)*width + x;
-                if (depth_buf[ind]>abs(z_interpolated)){
+                int ind = get_index(x,y);
+                if (depth_buf[ind]>z_interpolated){
                     set_pixel(point, rgb);
                 }
             }

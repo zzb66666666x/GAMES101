@@ -8,6 +8,9 @@
 #include "Texture.hpp"
 #include "OBJ_Loader.h"
 
+using std::max;
+using std::pow;
+
 Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
 {
     Eigen::Matrix4f view = Eigen::Matrix4f::Identity();
@@ -51,7 +54,7 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float z
 {
     // TODO: Use the same projection matrix from the previous assignments
     Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
-    float t = tan(eye_fov/2) * abs(zNear);
+    float t = tan(eye_fov/2) * (-zNear);
     float b = -t;
     float r = aspect_ratio * t;
     float l = -r;
@@ -116,6 +119,7 @@ Eigen::Vector3f texture_fragment_shader(const fragment_shader_payload& payload)
     Eigen::Vector3f kd = texture_color / 255.f;
     Eigen::Vector3f ks = Eigen::Vector3f(0.7937, 0.7937, 0.7937);
 
+    //light: {{position},{intensity}}
     auto l1 = light{{20, 20, 20}, {500, 500, 500}};
     auto l2 = light{{-20, 20, 0}, {500, 500, 500}};
 
@@ -147,6 +151,7 @@ Eigen::Vector3f phong_fragment_shader(const fragment_shader_payload& payload)
     Eigen::Vector3f kd = payload.color;
     Eigen::Vector3f ks = Eigen::Vector3f(0.7937, 0.7937, 0.7937);
 
+    //light: {{position},{intensity}}
     auto l1 = light{{20, 20, 20}, {500, 500, 500}};
     auto l2 = light{{-20, 20, 0}, {500, 500, 500}};
 
@@ -165,7 +170,15 @@ Eigen::Vector3f phong_fragment_shader(const fragment_shader_payload& payload)
     {
         // TODO: For each light source in the code, calculate what the *ambient*, *diffuse*, and *specular* 
         // components are. Then, accumulate that result on the *result_color* object.
-        
+        float r = (point - light.position).norm();
+        float r2 = r*r;
+        Eigen::Vector3f l = (light.position - point).normalized();
+        Eigen::Vector3f v = (eye_pos - point).normalized();
+        Eigen::Vector3f h = (v+l).normalized();
+        Eigen::Vector3f ambient = ka * amb_light_intensity[0];
+        Eigen::Vector3f diffuse = kd * (light.intensity[0]/(r2))*max(0.f,normal.dot(l));
+        Eigen::Vector3f specular = ks * (light.intensity[0]/(r2))*pow(max(0.f, normal.dot(h)),p);
+        result_color += (ambient + diffuse + specular);
     }
 
     return result_color * 255.f;
@@ -272,12 +285,12 @@ int main(int argc, const char** argv)
     //specify which 3D model to draw
     std::string filename = "output.png";
     objl::Loader Loader;
-    std::string obj_path = "./models/spot/";
+    std::string obj_path = "../models/spot/";
 
     // Load .obj File (default: ./model/spot)
     //How to load? 
     //Input: obj file   Output: a list of triangles in space (before MVP transform)
-    bool loadout = Loader.LoadFile("./models/spot/spot_triangulated_good.obj");
+    bool loadout = Loader.LoadFile("../models/spot/spot_triangulated_good.obj");
     for(auto mesh:Loader.LoadedMeshes)
     {
         for(int i=0;i<mesh.Vertices.size();i+=3)
