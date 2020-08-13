@@ -246,7 +246,8 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
                 mvp * t->v[2]
         };
         for (auto& vec : v) {
-            //Homogeneous division (make sure that the forth coordinate is 1)
+            //Homogeneous division 
+            //the forth coordinate dorsn't get changed here
             vec.x()/=vec.w();
             vec.y()/=vec.w();
             vec.z()/=vec.w();
@@ -345,9 +346,52 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t, const std::array<Eig
 {
     // TODO: From your HW3, get the triangle rasterization code.
     // TODO: Inside your rasterization loop:
-    //    * v[i].w() is the vertex view space depth value z.
-    //    * Z is interpolated view space depth for the current pixel
-    //    * zp is depth between zNear and zFar, used for z-buffer
+    float x_min, x_max, y_min, y_max, temp_x, temp_y;
+    Eigen::Vector3f rgb;
+    Eigen::Vector3f point;
+    x_min = t.v[0].x();
+    x_max = x_min;
+    y_min = t.v[0].y();
+    y_max = y_min;
+    // TODO : Find out the bounding box of current triangle.
+    for (int i=1; i<3; i++){
+        temp_x = t.v[i].x();
+        temp_y = t.v[i].y();
+        if (temp_x<x_min){x_min = temp_x;}
+        else if (temp_x>x_max){x_max = temp_x;}
+        if (temp_y<y_min){y_min = temp_y;}
+        else if (temp_y>y_max){y_max = temp_y;}
+    }
+    if ((x_min<0)||(x_max<0)||(y_min<0)||(y_max<0)){
+        throw "invalid position for pixels";
+    }
+    int x_begin, x_end, y_begin, y_end;
+    x_begin = (int)floor(x_min);
+    x_end = (int)ceil(x_max);
+    y_begin = (int)floor(y_min);
+    y_end = (int)ceil(y_max);
+    for (int x = x_begin; x<x_end; x++){
+        for (int y = y_begin; y<y_end; y++){
+            if(insideTriangle(x,y,t.v)){
+                //t.v[i].w() is the vertex view space depth value z.
+                //Z is interpolated view space depth for the current pixel
+                //zp is depth between zNear and zFar, used for z-buffer
+                auto[alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+                float Z = 1.0 / (alpha / t.v[0].w() + beta / t.v[1].w() + gamma / t.v[2].w());
+                float zp = alpha * t.v[0].z() / t.v[0].w() + beta * t.v[1].z() / t.v[1].w() + gamma * t.v[2].z() / t.v[2].w();
+                zp *= Z;
+                // TODO : set the current pixel (use the set_pixel function) to the color of the triangle 
+                // (use getColor function) if it should be painted.
+                point<<(float)x, (float)y, z_interpolated;
+                rgb = t.color[0]*255;
+                //z-buffer algorithm
+                int ind = (height-1-y)*width + x;
+                if (depth_buf[ind]>abs(z_interpolated)){
+                    set_pixel(point, rgb);
+                }
+            }
+        }
+    }
 
     // float Z = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
     // float zp = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();

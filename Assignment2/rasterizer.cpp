@@ -144,7 +144,9 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
         };
         //Homogeneous division
         for (auto& vec : v) {
-            vec /= vec.w();
+            vec.x()/=vec.w();
+            vec.y()/=vec.w();
+            vec.z()/=vec.w();
         }
         //Viewport transformation
         for (auto & vert : v)
