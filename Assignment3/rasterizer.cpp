@@ -193,6 +193,8 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
     ***************************************************************************/
 
     Eigen::Matrix4f mvp = projection * view * model;
+    FILE * fptr = fopen("checking.txt", "w");
+    fprintf(fptr, "old                                   new\n");
     for (const auto& t:TriangleList)
     {
         /************************************************************************************
@@ -321,8 +323,15 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList) {
         newtri.setColor(2, 148,121.0,92.0);
 
         // Also pass view space vertice position, this will be useful for calculating eyespace(viewspace) shading point
-        rasterize_triangle(newtri, viewspace_pos);
+        rasterize_triangle(fptr, newtri, viewspace_pos);
     }
+    fclose(fptr);
+}
+
+//interpolation using barycentric coordinate
+static float interpolate(float alpha, float beta, float gamma, const float vert1, const float vert2, const float vert3, float weight)
+{
+    return (alpha * vert1 + beta * vert2 + gamma * vert3) / weight;
 }
 
 static Eigen::Vector3f interpolate(float alpha, float beta, float gamma, const Eigen::Vector3f& vert1, const Eigen::Vector3f& vert2, const Eigen::Vector3f& vert3, float weight)
@@ -341,30 +350,8 @@ static Eigen::Vector2f interpolate(float alpha, float beta, float gamma, const E
     return Eigen::Vector2f(u, v);
 }
 
-//imporved version of interpolation
-static Eigen::Vector3f interpolate_m(float alpha, float beta, float gamma, const Triangle& t, const Eigen::Vector3f& vert1, const Eigen::Vector3f& vert2, const Eigen::Vector3f& vert3){
-    float Z = 1.0 / (alpha / t.v[0].w() + beta / t.v[1].w() + gamma / t.v[2].w());
-    Eigen::Vector3f res = alpha * vert1 / t.v[0].w() + beta * vert2 / t.v[1].w() + gamma * vert2 / t.v[2].w();
-    res *= Z; 
-    return res;
-}
-
-static Eigen::Vector2f interpolate_m(float alpha, float beta, float gamma, const Triangle& t, const Eigen::Vector2f& vert1, const Eigen::Vector2f& vert2, const Eigen::Vector2f& vert3){
-    float Z = 1.0 / (alpha / t.v[0].w() + beta / t.v[1].w() + gamma / t.v[2].w());
-    Eigen::Vector2f res = alpha * vert1 / t.v[0].w() + beta * vert2 / t.v[1].w() + gamma * vert2 / t.v[2].w();
-    res *= Z; 
-    return res;
-}
-
-static float interpolate_m(float alpha, float beta, float gamma, const Triangle& t, const float vert1, const float vert2, const float vert3){
-    float Z = 1.0 / (alpha / t.v[0].w() + beta / t.v[1].w() + gamma / t.v[2].w());
-    float res = alpha * vert1 / t.v[0].w() + beta * vert2 / t.v[1].w() + gamma * vert2 / t.v[2].w();
-    res *= Z; 
-    return res;
-}
-
 //Screen space rasterization
-void rst::rasterizer::rasterize_triangle(const Triangle& t, const std::array<Eigen::Vector3f, 3>& view_pos) 
+void rst::rasterizer::rasterize_triangle(FILE* fptr, const Triangle& t, const std::array<Eigen::Vector3f, 3>& view_pos) 
 {
     // TODO: From your HW3, get the triangle rasterization code.
     // TODO: Inside your rasterization loop:
@@ -397,7 +384,12 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t, const std::array<Eig
             if(insideTriangle(x,y,t.v)){
                 //calc barycentric coordinate and do interpolation
                 auto[alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
-                float zp = interpolate_m(alpha, beta, gamma, t, t.v[0].z(), t.v[1].z(), t.v[2].z());        
+                Eigen::Vector3f barycentric(alpha, beta, gamma);
+                float Z = 1.0 / (alpha / t.v[0].w() + beta / t.v[1].w() + gamma / t.v[2].w());
+                alpha = alpha/t.v[0].w()*Z;
+                beta = beta/t.v[1].w()*Z;
+                gamma = gamma/t.v[2].w()*Z;
+                float zp = interpolate(alpha, beta, gamma, t.v[0].z(), t.v[1].z(), t.v[2].z(),1);        
                 //z buffer first
                 if (zp < depth_buf[get_index(x,y)]){
                     depth_buf[get_index(x,y)] = zp;
@@ -405,12 +397,8 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t, const std::array<Eig
                     auto interpolated_normal = interpolate(alpha, beta, gamma,t.normal[0],t.normal[1],t.normal[2],1).normalized();
                     auto interpolated_texcoords = interpolate(alpha, beta, gamma,t.tex_coords[0],t.tex_coords[1],t.tex_coords[2],1);
                     auto interpolated_shadingcoords = interpolate(alpha, beta, gamma,view_pos[0],view_pos[1],view_pos[2],1);
-                    // auto interpolated_color = interpolate_m(alpha, beta, gamma, t, t.color[0], t.color[1], t.color[2]);
-                    // auto interpolated_normal = interpolate_m(alpha, beta, gamma, t, t.normal[0], t.normal[1], t.normal[2]);
-                    // auto interpolated_texcoords = interpolate_m(alpha, beta, gamma, t, t.tex_coords[0],t.tex_coords[1],t.tex_coords[2]);
-                    // auto interpolated_shadingcoords = interpolate_m(alpha, beta, gamma, t, view_pos[0],view_pos[1],view_pos[2]);
                     //initialize shader payload
-                    fragment_shader_payload payload( interpolated_color, interpolated_normal.normalized(), interpolated_texcoords, texture ? &*texture : nullptr);
+                    fragment_shader_payload payload( interpolated_color, interpolated_normal, interpolated_texcoords, texture ? &*texture : nullptr);
                     payload.view_pos = interpolated_shadingcoords;
                     //Instead of passing the triangle's color directly to the frame buffer, pass the color to the shaders first to get the final color;
                     auto pixel_color = fragment_shader(payload);
@@ -419,7 +407,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t, const std::array<Eig
                 }
             }
         }
-    } 
+    }
 }
 
 void rst::rasterizer::set_model(const Eigen::Matrix4f& m)

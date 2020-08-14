@@ -68,6 +68,15 @@ int main(){
     std::cout<<vec4d.w()<<std::endl;
     std::cout<<"modify vector\n";
     vec4d.x() = 777;
-    std::cout<<vec4d;
+    std::cout<<vec4d<<std::endl;
+
+    //test using vectors to initialize matrix
+    Eigen::Vector3f vt(1,2,3);
+    Eigen::Vector3f vb(4,5,6);
+    Eigen::Vector3f vn(7,8,9);
+    Eigen::Matrix<float, 3,3> tbn;
+    tbn<<vt,vb,vn;
+    std::cout<<tbn<<std::endl;
+
     return 0;
 }
