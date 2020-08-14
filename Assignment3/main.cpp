@@ -10,6 +10,7 @@
 
 using std::max;
 using std::pow;
+using std::sqrt;
 
 Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
 {
@@ -218,30 +219,51 @@ Eigen::Vector3f displacement_fragment_shader(const fragment_shader_payload& payl
     Eigen::Vector3f point = payload.view_pos;
     Eigen::Vector3f normal = payload.normal;
 
-    float kh = 0.2, kn = 0.1;
+    float kh = 0.2;
+    float kn = 0.1;
     
     // TODO: Implement displacement mapping here
     // Let n = normal = (x, y, z)
+    float x = normal.x();
+    float y = normal.y();
+    float z = normal.z();
     // Vector t = (x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z))
+    Eigen::Vector3f tangent(x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z));
     // Vector b = n cross product t
+    Eigen::Vector3f bitangent = normal.cross(tangent);
     // Matrix TBN = [t b n]
-    // dU = kh * kn * (h(u+1/w,v)-h(u,v))
-    // dV = kh * kn * (h(u,v+1/h)-h(u,v))
+    Eigen::Matrix<float,3,3> TBN;
+    TBN<<tangent,bitangent,normal; 
+    // dU = kh * kn * (h(u+1/width,v)-h(u,v))
+    // dV = kh * kn * (h(u,v+1/height)-h(u,v))
+    float width = (float)payload.texture->width;
+    float height = (float)payload.texture->height;
+    float u = payload.tex_coords.x();
+    float v = payload.tex_coords.y();
+    float dU = kh * kn * (payload.texture->getColor(u+1/width,v).norm()-payload.texture->getColor(u,v).norm());
+    float dV = kh * kn * (payload.texture->getColor(u,v+1/height).norm()-payload.texture->getColor(u,v).norm());
     // Vector ln = (-dU, -dV, 1)
+    Eigen::Vector3f tangent_space_normal(-dU,-dV,1);
     // Position p = p + kn * n * h(u,v)
+    point += (kn * normal * payload.texture->getColor(u,v).norm());
     // Normal n = normalize(TBN * ln)
-
+    normal = (TBN * tangent_space_normal).normalized();
 
     Eigen::Vector3f result_color = {0, 0, 0};
-
     for (auto& light : lights)
     {
         // TODO: For each light source in the code, calculate what the *ambient*, *diffuse*, and *specular* 
         // components are. Then, accumulate that result on the *result_color* object.
-
-
+        float r = (point - light.position).norm();
+        float r2 = r*r;
+        Eigen::Vector3f l = (light.position - point).normalized();
+        Eigen::Vector3f v = (eye_pos - point).normalized();
+        Eigen::Vector3f h = (v+l).normalized();
+        Eigen::Vector3f ambient = ka * amb_light_intensity[0];
+        Eigen::Vector3f diffuse = kd * (light.intensity[0]/(r2))*max(0.f,normal.dot(l));
+        Eigen::Vector3f specular = ks * (light.intensity[0]/(r2))*pow(max(0.f, normal.dot(h)),p);
+        result_color += (ambient + diffuse + specular);
     }
-
     return result_color * 255.f;
 }
 
@@ -266,23 +288,35 @@ Eigen::Vector3f bump_fragment_shader(const fragment_shader_payload& payload)
     Eigen::Vector3f point = payload.view_pos;
     Eigen::Vector3f normal = payload.normal;
 
-
-    float kh = 0.2, kn = 0.1;
+    float kh = 0.2;
+    float kn = 0.1;
 
     // TODO: Implement bump mapping here
     // Let n = normal = (x, y, z)
+    float x = normal.x();
+    float y = normal.y();
+    float z = normal.z();
     // Vector t = (x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z))
+    Eigen::Vector3f tangent(x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z));
     // Vector b = n cross product t
+    Eigen::Vector3f bitangent = normal.cross(tangent);
     // Matrix TBN = [t b n]
-    // dU = kh * kn * (h(u+1/w,v)-h(u,v))
-    // dV = kh * kn * (h(u,v+1/h)-h(u,v))
+    Eigen::Matrix<float,3,3> TBN;
+    TBN<<tangent,bitangent,normal; 
+    // dU = kh * kn * (h(u+1/width,v)-h(u,v))
+    // dV = kh * kn * (h(u,v+1/height)-h(u,v))
+    float width = (float)payload.texture->width;
+    float height = (float)payload.texture->height;
+    float u = payload.tex_coords.x();
+    float v = payload.tex_coords.y();
+    float dU = kh * kn * (payload.texture->getColor(u+1/width,v).norm()-payload.texture->getColor(u,v).norm());
+    float dV = kh * kn * (payload.texture->getColor(u,v+1/height).norm()-payload.texture->getColor(u,v).norm());
     // Vector ln = (-dU, -dV, 1)
+    Eigen::Vector3f tangent_space_normal(-dU,-dV,1);
     // Normal n = normalize(TBN * ln)
-
-
+    normal = (TBN*tangent_space_normal).normalized();
     Eigen::Vector3f result_color = {0, 0, 0};
     result_color = normal;
-
     return result_color * 255.f;
 }
 
@@ -381,7 +415,7 @@ int main(int argc, const char** argv)
         }
         else if (argc == 3 && std::string(argv[2]) == "displacement")
         {
-            std::cout << "Rasterizing using the bump shader\n";
+            std::cout << "Rasterizing using the displacement shader\n";
             active_shader = displacement_fragment_shader;
         }
     }
