@@ -1,13 +1,18 @@
 #include <chrono>
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include <string>
 
+using std::string;
+
+//Control points for Bezier Curve
 std::vector<cv::Point2f> control_points;
 
 void mouse_handler(int event, int x, int y, int flags, void *userdata) 
 {
     if (event == cv::EVENT_LBUTTONDOWN && control_points.size() < 4) 
     {
+        //collect four control points for Bezier Curve
         std::cout << "Left button of the mouse is clicked - position (" << x << ", "
         << y << ")" << '\n';
         control_points.emplace_back(x, y);
@@ -44,37 +49,67 @@ void bezier(const std::vector<cv::Point2f> &control_points, cv::Mat &window)
 
 }
 
-int main() 
+int main(int argc, const char ** argv) 
 {
-    cv::Mat window = cv::Mat(700, 700, CV_8UC3, cv::Scalar(0));
-    cv::cvtColor(window, window, cv::COLOR_BGR2RGB);
-    cv::namedWindow("Bezier Curve", cv::WINDOW_AUTOSIZE);
-
-    cv::setMouseCallback("Bezier Curve", mouse_handler, nullptr);
-
-    int key = -1;
-    while (key != 27) 
-    {
-        for (auto &point : control_points) 
-        {
-            cv::circle(window, point, 3, {255, 255, 255}, 3);
+    try{
+        if (argc>3 || argc < 1){
+            throw "invalid number of params";
         }
+        cv::Mat window = cv::Mat(700, 700, CV_8UC3, cv::Scalar(0));
+        cv::cvtColor(window, window, cv::COLOR_BGR2RGB);
+        cv::namedWindow("Bezier Curve", cv::WINDOW_AUTOSIZE);
+        cv::setMouseCallback("Bezier Curve", mouse_handler, nullptr);
+        string path = "../images/";
+        string filename = "naive_bezier.png";
+        bool use_naive_bezier = true;
+        int key = -1;
+        if (argc >= 2){
+            //specify mode
+            string mode = argv[1];
+            if (mode != "naive"){
+                if (mode == "recursive"){
+                    use_naive_bezier = false;
+                    filename = "recursive_bezier.png";
+                    throw "not finished mode";
+                }
+                else {
+                    throw "invalid mode";
+                }
+            }
+            if(argc == 3){
+                //specify filename
+                string name = argv[2];
+                filename = name;
+            }
+        }
+        filename = path + filename;
+        while (key != 27) {
+            for (auto &point : control_points) {
+                cv::circle(window, point, 3, {255, 255, 255}, 3);
+            }
 
-        if (control_points.size() == 4) 
-        {
-            naive_bezier(control_points, window);
-            //   bezier(control_points, window);
+            if (control_points.size() == 4) {
+                if (use_naive_bezier){
+                    naive_bezier(control_points, window);
+                }
+                else{
+                    bezier(control_points, window);
+                }
+
+                cv::imshow("Bezier Curve", window);
+                cv::imwrite(filename, window);
+                //The function waitKey waits for a key event infinitely (when delay ≤ 0 ).
+                key = cv::waitKey(0);
+                return 0;
+            }
 
             cv::imshow("Bezier Curve", window);
-            cv::imwrite("my_bezier_curve.png", window);
-            key = cv::waitKey(0);
-
-            return 0;
+            //The function waitKey waits for delay milliseconds, when param passed is positiv.
+            key = cv::waitKey(20);
         }
-
-        cv::imshow("Bezier Curve", window);
-        key = cv::waitKey(20);
+        return 0;
     }
-
-return 0;
+    catch (const char* msg){
+        std::cout<<msg<<std::endl;
+    }
 }
