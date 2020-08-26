@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/MyCode/Cpp/GAMES101/Assignment3/build"
+			"value" : "d:/Mycode/Cpp/GAMES101/Assignment3/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -1279,7 +1279,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment3/build"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment3/build"
 		},
 		{
 			"name" : "Rasterizer_SOURCE_DIR",
@@ -1291,7 +1291,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment3"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment3"
 		}
 	],
 	"kind" : "cache",

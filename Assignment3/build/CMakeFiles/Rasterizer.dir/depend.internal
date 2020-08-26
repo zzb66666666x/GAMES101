@@ -406,9 +406,9 @@ CMakeFiles/Rasterizer.dir/Texture.cpp.obj
  D:/CodingLibs/opencv/sources/modules/video/include/opencv2/video/background_segm.hpp
  D:/CodingLibs/opencv/sources/modules/video/include/opencv2/video/tracking.hpp
  D:/CodingLibs/opencv/sources/modules/videoio/include/opencv2/videoio.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Texture.cpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Texture.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/global.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Texture.cpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Texture.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/global.hpp
 CMakeFiles/Rasterizer.dir/Triangle.cpp.obj
  D:/CodingLibs/eigen3/Eigen/Cholesky
  D:/CodingLibs/eigen3/Eigen/Core
@@ -814,10 +814,10 @@ CMakeFiles/Rasterizer.dir/Triangle.cpp.obj
  D:/CodingLibs/opencv/sources/modules/video/include/opencv2/video/background_segm.hpp
  D:/CodingLibs/opencv/sources/modules/video/include/opencv2/video/tracking.hpp
  D:/CodingLibs/opencv/sources/modules/videoio/include/opencv2/videoio.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Texture.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Triangle.cpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Triangle.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/global.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Texture.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Triangle.cpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Triangle.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/global.hpp
 CMakeFiles/Rasterizer.dir/main.cpp.obj
  D:/CodingLibs/eigen3/Eigen/Cholesky
  D:/CodingLibs/eigen3/Eigen/Core
@@ -1223,13 +1223,13 @@ CMakeFiles/Rasterizer.dir/main.cpp.obj
  D:/CodingLibs/opencv/sources/modules/video/include/opencv2/video/background_segm.hpp
  D:/CodingLibs/opencv/sources/modules/video/include/opencv2/video/tracking.hpp
  D:/CodingLibs/opencv/sources/modules/videoio/include/opencv2/videoio.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/OBJ_Loader.h
- D:/MyCode/Cpp/GAMES101/Assignment3/Shader.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Texture.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Triangle.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/global.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/main.cpp
- D:/MyCode/Cpp/GAMES101/Assignment3/rasterizer.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/OBJ_Loader.h
+ D:/Mycode/Cpp/GAMES101/Assignment3/Shader.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Texture.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Triangle.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/global.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/main.cpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/rasterizer.hpp
 CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj
  D:/CodingLibs/eigen3/Eigen/Cholesky
  D:/CodingLibs/eigen3/Eigen/Core
@@ -1635,9 +1635,9 @@ CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj
  D:/CodingLibs/opencv/sources/modules/video/include/opencv2/video/background_segm.hpp
  D:/CodingLibs/opencv/sources/modules/video/include/opencv2/video/tracking.hpp
  D:/CodingLibs/opencv/sources/modules/videoio/include/opencv2/videoio.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Shader.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Texture.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/Triangle.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/global.hpp
- D:/MyCode/Cpp/GAMES101/Assignment3/rasterizer.cpp
- D:/MyCode/Cpp/GAMES101/Assignment3/rasterizer.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Shader.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Texture.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/Triangle.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/global.hpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/rasterizer.cpp
+ D:/Mycode/Cpp/GAMES101/Assignment3/rasterizer.hpp

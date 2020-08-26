@@ -227,8 +227,8 @@ Eigen::Vector3f displacement_fragment_shader(const fragment_shader_payload& payl
     float x = normal.x();
     float y = normal.y();
     float z = normal.z();
-    // Vector t = (x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z))
-    Eigen::Vector3f tangent(x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z));
+    // Vector t = (-x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),-z*y/sqrt(x*x+z*z))
+    Eigen::Vector3f tangent(-1*x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),-1*z*y/sqrt(x*x+z*z));
     // Vector b = n cross product t
     Eigen::Vector3f bitangent = normal.cross(tangent);
     // Matrix TBN = [t b n]
@@ -296,8 +296,8 @@ Eigen::Vector3f bump_fragment_shader(const fragment_shader_payload& payload)
     float x = normal.x();
     float y = normal.y();
     float z = normal.z();
-    // Vector t = (x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z))
-    Eigen::Vector3f tangent(x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z));
+    // Vector t = (-x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),-z*y/sqrt(x*x+z*z))
+    Eigen::Vector3f tangent(-1*x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),-1*z*y/sqrt(x*x+z*z));
     // Vector b = n cross product t
     Eigen::Vector3f bitangent = normal.cross(tangent);
     // Matrix TBN = [t b n]
