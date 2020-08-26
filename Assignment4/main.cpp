@@ -6,6 +6,7 @@
 using std::string;
 
 //Control points for Bezier Curve
+//global definition
 std::vector<cv::Point2f> control_points;
 
 void mouse_handler(int event, int x, int y, int flags, void *userdata) 
@@ -28,6 +29,7 @@ void naive_bezier(const std::vector<cv::Point2f> &points, cv::Mat &window)
 
     for (double t = 0.0; t <= 1.0; t += 0.001) 
     {
+        //analytic solution for 3 order Bezier Curve
         auto point = std::pow(1 - t, 3) * p_0 + 3 * t * std::pow(1 - t, 2) * p_1 +
                  3 * std::pow(t, 2) * (1 - t) * p_2 + std::pow(t, 3) * p_3;
 
@@ -38,15 +40,35 @@ void naive_bezier(const std::vector<cv::Point2f> &points, cv::Mat &window)
 cv::Point2f recursive_bezier(const std::vector<cv::Point2f> &control_points, float t) 
 {
     // TODO: Implement de Casteljau's algorithm
-    return cv::Point2f();
-
+    int num_points = control_points.size(); //num_points = 4 in the first call
+    bool final_phase = false;
+    assert(num_points >= 2);
+    if (num_points == 2){
+        final_phase = true;
+    }
+    std::vector<cv::Point2f> next_call;
+    for (int i=0; i<num_points-1; i++){
+        auto& temp1 = control_points[i];
+        auto& temp2 = control_points[i+1];
+        next_call.push_back((1-t)*temp1+t*temp2);
+    }
+    if (final_phase){
+        return next_call[0];
+    }
+    else{
+        return recursive_bezier(next_call, t);
+    }
 }
 
 void bezier(const std::vector<cv::Point2f> &control_points, cv::Mat &window) 
 {
     // TODO: Iterate through all t = 0 to t = 1 with small steps, and call de Casteljau's 
     // recursive Bezier algorithm.
-
+    double step_size = 0.001;
+    for (double t=0.0; t<=1.0; t+=step_size){
+        auto point = recursive_bezier(control_points, t);
+        window.at<cv::Vec3b>(point.y, point.x)[1] = 255;
+    }
 }
 
 int main(int argc, const char ** argv) 
@@ -70,7 +92,6 @@ int main(int argc, const char ** argv)
                 if (mode == "recursive"){
                     use_naive_bezier = false;
                     filename = "recursive_bezier.png";
-                    throw "not finished mode";
                 }
                 else {
                     throw "invalid mode";
