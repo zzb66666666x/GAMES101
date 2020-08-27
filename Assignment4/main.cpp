@@ -4,10 +4,17 @@
 #include <string>
 
 using std::string;
+using std::round;
+using std::pair;
+using std::make_pair;
+using std::sqrt;
+using std::pow;
 
-//Control points for Bezier Curve
 //global definition
+//Control points for Bezier Curve
 std::vector<cv::Point2f> control_points;
+int window_x = 700;
+int window_y = 700;
 
 typedef enum color_theme{
     GREEN = 1,
@@ -26,9 +33,46 @@ void mouse_handler(int event, int x, int y, int flags, void *userdata)
     }     
 }
 
+float minimal_value(std::map<pair<int,int>, float>& points_map){
+    float res = points_map.begin()->second;
+    for (auto it = points_map.begin(); it != points_map.end(); it++){
+        if(it->second < res){
+            res = it->second;
+        }
+    }
+    return res;
+}
+
 void fill_pixel( cv::Mat &window, cv::Point2f point, COLOR color, bool use_anti_alias){
     if (use_anti_alias){
-        window.at<cv::Vec3b>(point.y, point.x)[color] = 255;
+        //std::cout<<"using anti_alias here\n";
+        //find the four pixels around
+        int round_x = round(point.x);
+        int round_y = round(point.y);
+        std::vector<pair<int,int>> list;
+        std::map<pair<int,int>, float> points_map;
+        for (int delta_x=1; delta_x>-3; delta_x--){
+            for(int delta_y=1; delta_y>-3; delta_y--){
+                list.push_back(make_pair(round_x+delta_x, round_y+delta_y));
+            }
+        }  
+        for (auto it=list.begin(); it!=list.end(); it++){
+            auto& pixel = *it;
+            if (pixel.first<0 || pixel.second<0 || pixel.first > window_x || pixel.second>window_y){
+                continue;
+            }
+            else{
+                points_map[pixel] = sqrt(pow(pixel.first+0.5-point.x,2)+pow(pixel.second+0.5-point.y,2));
+            }
+        }
+        std::map<pair<int,int>, float>::iterator it;
+        float min_dis = minimal_value(points_map);
+        int color_val;
+        for (auto it = points_map.begin(); it != points_map.end(); it++){
+            color_val = (int)(pow(min_dis/it->second,0.1)*255);
+            window.at<cv::Vec3b>((it->first).second, (it->first).first)[color] = color_val;
+            //std::cout<<"color_val is: "<<color_val<<std::endl;
+        }
     }
     else{
         window.at<cv::Vec3b>(point.y, point.x)[color] = 255;
@@ -91,7 +135,7 @@ int main(int argc, const char ** argv)
         if (argc>4 || argc < 1){
             throw "invalid number of params";
         }
-        cv::Mat window = cv::Mat(700, 700, CV_8UC3, cv::Scalar(0));
+        cv::Mat window = cv::Mat(window_x, window_y, CV_8UC3, cv::Scalar(0));
         cv::cvtColor(window, window, cv::COLOR_BGR2RGB);
         cv::namedWindow("Bezier Curve", cv::WINDOW_AUTOSIZE);
         cv::setMouseCallback("Bezier Curve", mouse_handler, nullptr);
@@ -113,10 +157,11 @@ int main(int argc, const char ** argv)
                 }
             }
             if(argc >= 3){
-                if (argv[2] == "AA_on"){
+                string use_aa = argv[2];
+                if (use_aa == "on"){
                     use_anti_alias = true;
                 }
-                else if (argv[2] == "AA_off"){
+                else if (use_aa == "off"){
                     throw "invalid argument";
                 }
                 if (argc == 4){
