@@ -1,0 +1,12 @@
+[
+{
+  "directory": "D:/Mycode/Cpp/GAMES101/Assignment5/build",
+  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -Wall -Wextra -pedantic -Wshadow -Wreturn-type -fsanitize=undefined -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\main.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment5\\main.cpp",
+  "file": "D:/Mycode/Cpp/GAMES101/Assignment5/main.cpp"
+},
+{
+  "directory": "D:/Mycode/Cpp/GAMES101/Assignment5/build",
+  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -Wall -Wextra -pedantic -Wshadow -Wreturn-type -fsanitize=undefined -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Renderer.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment5\\Renderer.cpp",
+  "file": "D:/Mycode/Cpp/GAMES101/Assignment5/Renderer.cpp"
+}
+]
