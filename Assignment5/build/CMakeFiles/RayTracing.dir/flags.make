@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = 
 
-CXX_FLAGS = -g -Wall -Wextra -pedantic -Wshadow -Wreturn-type -fsanitize=undefined -std=gnu++17
+CXX_FLAGS = -g -std=gnu++17
 

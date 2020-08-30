@@ -13,9 +13,7 @@
 	{
 		"commands" : 
 		[
-			"add_executable",
-			"target_link_libraries",
-			"target_compile_options"
+			"add_executable"
 		],
 		"files" : 
 		[
@@ -31,18 +29,6 @@
 				"file" : 0,
 				"line" : 6,
 				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 9,
-				"parent" : 0
-			},
-			{
-				"command" : 2,
-				"file" : 0,
-				"line" : 7,
-				"parent" : 0
 			}
 		]
 	},
@@ -53,30 +39,6 @@
 			[
 				{
 					"fragment" : "-g"
-				},
-				{
-					"backtrace" : 3,
-					"fragment" : "-Wall"
-				},
-				{
-					"backtrace" : 3,
-					"fragment" : "-Wextra"
-				},
-				{
-					"backtrace" : 3,
-					"fragment" : "-pedantic"
-				},
-				{
-					"backtrace" : 3,
-					"fragment" : "-Wshadow"
-				},
-				{
-					"backtrace" : 3,
-					"fragment" : "-Wreturn-type"
-				},
-				{
-					"backtrace" : 3,
-					"fragment" : "-fsanitize=undefined"
 				},
 				{
 					"fragment" : "-std=gnu++17"
@@ -102,11 +64,6 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "-fsanitize=undefined",
-				"role" : "libraries"
 			},
 			{
 				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",

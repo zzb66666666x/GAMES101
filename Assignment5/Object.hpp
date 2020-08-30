@@ -31,7 +31,7 @@ public:
 
     // material properties
     MaterialType materialType;
-    float ior;
+    float ior;  //refractive index for using the snell's law
     float Kd, Ks;
     Vector3f diffuseColor;
     float specularExponent;

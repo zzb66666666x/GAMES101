@@ -10,6 +10,16 @@ inline float deg2rad(const float &deg)
 // Compute reflection direction
 Vector3f reflect(const Vector3f &I, const Vector3f &N)
 {
+    //params: 
+    //I: the direction of input light ray
+    //N: the normal vector the hit point
+    //I and N are all normalized unit vectors
+    //mathmatical fact behind:
+    //the geometry here is a rhombus(菱形) with side length = 1
+    //suppose the input ray is pointing out and forms a angle theta with normal
+    //then cos(theta) = -dot(I, N)
+    //since the middle line between input and output within the rhombus has length 2cos(theta)
+    //it's then obvious that output is I + 2cos(theta)*N
     return I - 2 * dotProduct(I, N) * N;
 }
 
@@ -86,13 +96,14 @@ std::optional<hit_payload> trace(
 {
     float tNear = kInfinity;
     std::optional<hit_payload> payload;
-    for (const auto & object : objects)
-    {
+    for (const auto & object : objects) //objects: a std vector of unique_ptr which points to spheres or MeshTriangle
+    {   //loop over every thing in the scene to check intersection
         float tNearK = kInfinity;
         uint32_t indexK;
         Vector2f uvK;
+        //different intersect() will be called
         if (object->intersect(orig, dir, tNearK, indexK, uvK) && tNearK < tNear)
-        {
+        {   //the passed in params indexK and uvK are only useful when the object is MeshTriangles
             payload.emplace();
             payload->hit_obj = object.get();
             payload->tNear = tNearK;
@@ -108,7 +119,7 @@ std::optional<hit_payload> trace(
 // [comment]
 // Implementation of the Whitted-style light transport algorithm (E [S*] (D|G) L)
 //
-// This function is the function that compute the color at the intersection point
+// This function is the function that compute the color at the intersection point (shading)
 // of a ray defined by a position and a direction. Note that thus function is recursive (it calls itself).
 //
 // If the material of the intersected object is either reflective or reflective and refractive,
@@ -121,22 +132,33 @@ std::optional<hit_payload> trace(
 // If the surface is diffuse/glossy we use the Phong illumation model to compute the color
 // at the intersection point.
 // [/comment]
-Vector3f castRay(
-        const Vector3f &orig, const Vector3f &dir, const Scene& scene,
-        int depth)
-{
+Vector3f castRay(const Vector3f &orig, const Vector3f &dir, 
+                const Scene& scene,int depth){
     if (depth > scene.maxDepth) {
+        //during the first pass, the depth passed in is 0
         return Vector3f(0.0,0.0,0.0);
     }
-
+    //default color at hit point (in case the light ray doesn't hit anything)
     Vector3f hitColor = scene.backgroundColor;
+    //recursion stops if the light ray hits the background
     if (auto payload = trace(orig, dir, scene.get_objects()); payload)
     {
+        //if the ray doen't hit an object, the payload will be empty <-- new feature of std::optional
         Vector3f hitPoint = orig + dir * payload->tNear;
         Vector3f N; // normal
         Vector2f st; // st coordinates
         payload->hit_obj->getSurfaceProperties(hitPoint, dir, payload->index, payload->uv, N, st);
+        //if the hit_obj is MeshTriangle instance:
+        //      input information contains: hitPoint, dir, index, uv
+        //      output contains: normal vector N of this triangle, the interpolated mesh coordinate st 
+        //if the hit_obj is sphere instance:
+        //      input information contains: hitPoint, dir (the index and uv will be empty)
+        //      output only contains the normal vector
+        //the function getSurfaceProperties will treat these params accordingly 
         switch (payload->hit_obj->materialType) {
+            //in this project, to simplify the problems, we only do shading at diffuse surface which is MeshTriangles (or background)
+            //aka, the REFLECTION_AND_REFRACTION case is like a color-less glass ball  
+            //and the REFLECTION case is like a color-less silver mirror
             case REFLECTION_AND_REFRACTION:
             {
                 Vector3f reflectionDirection = normalize(reflect(dir, N));
@@ -147,15 +169,18 @@ Vector3f castRay(
                 Vector3f refractionRayOrig = (dotProduct(refractionDirection, N) < 0) ?
                                              hitPoint - N * scene.epsilon :
                                              hitPoint + N * scene.epsilon;
+                //recursion here
+                //two ray going out: reflection and refraction
                 Vector3f reflectionColor = castRay(reflectionRayOrig, reflectionDirection, scene, depth + 1);
                 Vector3f refractionColor = castRay(refractionRayOrig, refractionDirection, scene, depth + 1);
                 float kr = fresnel(dir, N, payload->hit_obj->ior);
+                //use the fresnel coefficient to do linear combination of two color from reflection and refraction
                 hitColor = reflectionColor * kr + refractionColor * (1 - kr);
                 break;
             }
             case REFLECTION:
             {
-                float kr = fresnel(dir, N, payload->hit_obj->ior);
+                float kr = fresnel(dir, N, payload->hit_obj->ior);  //energy loss by fresnel's law
                 Vector3f reflectionDirection = reflect(dir, N);
                 Vector3f reflectionRayOrig = (dotProduct(reflectionDirection, N) < 0) ?
                                              hitPoint + N * scene.epsilon :
@@ -165,8 +190,11 @@ Vector3f castRay(
             }
             default:
             {
+            //DIFFUSE_AND_GLOSSY
+            //recursion stops here (aka. the light ray stops bouncing when hitting diffuse material or background)
+            //loop over the light source and do shading (only in this case)
                 // [comment]
-                // We use the Phong illumation model int the default case. The phong model
+                // We use the Phong illumation model in the default case. The phong model
                 // is composed of a diffuse and a specular reflection component.
                 // [/comment]
                 Vector3f lightAmt = 0, specularColor = 0;
@@ -180,18 +208,21 @@ Vector3f castRay(
                 for (auto& light : scene.get_lights()) {
                     Vector3f lightDir = light->position - hitPoint;
                     // square of the distance between hitPoint and the light
-                    float lightDistance2 = dotProduct(lightDir, lightDir);
+                    float lightDistance2 = dotProduct(lightDir, lightDir);  //squared distance
                     lightDir = normalize(lightDir);
                     float LdotN = std::max(0.f, dotProduct(lightDir, N));
                     // is the point in shadow, and is the nearest occluding object closer to the object than the light itself?
                     auto shadow_res = trace(shadowPointOrig, lightDir, scene.get_objects());
-                    bool inShadow = shadow_res && (shadow_res->tNear * shadow_res->tNear < lightDistance2);
-
-                    lightAmt += inShadow ? 0 : light->intensity * LdotN;
+                    //trace the light ray to the light source to see if the shading point is (directly) illuminated
+                    //in shadow: the hit payload is not empty and the squared distance between hit point and shading point is less than 
+                    //           the distance from shading point to light source
+                    bool inShadow = shadow_res && (std::pow(shadow_res->tNear,2) < lightDistance2);
+                    //intensity * LdotN gives the result of lambert cosine law
+                    lightAmt += inShadow ? 0 : light->intensity * LdotN;    
                     Vector3f reflectionDirection = reflect(-lightDir, N);
-
-                    specularColor += powf(std::max(0.f, -dotProduct(reflectionDirection, dir)),
-                        payload->hit_obj->specularExponent) * light->intensity;
+                    //specular term of bling-phong model
+                    specularColor += inShadow ? 0: powf(std::max(0.f, -dotProduct(reflectionDirection, dir)),
+                        payload->hit_obj->specularExponent) * light->intensity/lightDistance2;
                 }
 
                 hitColor = lightAmt * payload->hit_obj->evalDiffuseColor(st) * payload->hit_obj->Kd + specularColor * payload->hit_obj->Ks;
@@ -234,7 +265,7 @@ void Renderer::Render(const Scene& scene)
             //default image plane: [-1,1]*aspect_ratio x [-1,1], z = -d 
             // this plane is equivalent with [-1,1]*aspect_ratio/d x [-1,1]/d, z = -1        
             x = imageAspectRatio*((i+0.5)/(scene.width/2) - 1) * scale;
-            y = ((j+0.5)/(scene.height/2) - 1) * scale;
+            y = ((j+0.5)/(scene.height/2)-1) * scale * -1;
             //then we have direction = (u,v,-d) = (x,y,-1) where x = u/d, y = v/d and scale = 1/d = tan(fov/2)
             Vector3f dir = Vector3f(x, y, -1); // Don't forget to normalize this direction!
             dir = normalize(dir);

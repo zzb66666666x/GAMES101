@@ -34,6 +34,7 @@ public:
     void getSurfaceProperties(const Vector3f& P, const Vector3f&, const uint32_t&, const Vector2f&,
                               Vector3f& N, Vector2f&) const override
     {
+        //normal vector of sphere surface is simpyly the unit vector of hit_point minus sphere_center
         N = normalize(P - center);
     }
 
