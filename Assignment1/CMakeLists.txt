@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(Rasterizer)
 set(CMAKE_CXX_STANDARD 17)
 
-set(LIBS D:\\CodingLibs)
+set(LIBS D:/CodingLibs)
 set(OpenCV_DIR ${LIBS}/opencv/mingw_build)
 find_package(OpenCV REQUIRED)
 

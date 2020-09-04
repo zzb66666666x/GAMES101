@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/MyCode/Cpp/GAMES101/Assignment2/build"
+			"value" : "d:/Mycode/Cpp/GAMES101/Assignment1/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment2"
+			"value" : "D:/MyCode/Cpp/GAMES101/Assignment1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1270,18 +1270,6 @@
 			"value" : "[D:/CodingLibs/opencv/mingw_build][v4.4.0()]"
 		},
 		{
-			"name" : "OpenCV_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for OpenCV."
-				}
-			],
-			"type" : "PATH",
-			"value" : "OpenCV_DIR-NOTFOUND"
-		},
-		{
 			"name" : "Rasterizer_BINARY_DIR",
 			"properties" : 
 			[
@@ -1291,7 +1279,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment2/build"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment1/build"
 		},
 		{
 			"name" : "Rasterizer_SOURCE_DIR",
@@ -1303,7 +1291,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment2"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment1"
 		}
 	],
 	"kind" : "cache",

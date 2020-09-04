@@ -28,13 +28,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 9,
+				"line" : 6,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 7,
+				"line" : 4,
 				"parent" : 0
 			}
 		]
@@ -52,7 +52,7 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "D:/CodingLibs/eigen3"
+					"path" : "D:/CodingLibs"
 				}
 			],
 			"language" : "CXX",

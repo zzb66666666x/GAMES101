@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/MyCode/Cpp/GAMES101/Assignment1/build"
+			"value" : "d:/Mycode/Cpp/GAMES101/Assignment0/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment1"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment0"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -659,7 +659,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Program Files (x86)/Rasterizer"
+			"value" : "C:/Program Files (x86)/Transformation"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -879,7 +879,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "Rasterizer"
+			"value" : "Transformation"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1258,19 +1258,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_OpenCV",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Details about finding OpenCV"
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "[D:/CodingLibs/opencv/mingw_build][v4.4.0()]"
-		},
-		{
-			"name" : "Rasterizer_BINARY_DIR",
+			"name" : "Transformation_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1279,10 +1267,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment1/build"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment0/build"
 		},
 		{
-			"name" : "Rasterizer_SOURCE_DIR",
+			"name" : "Transformation_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1291,7 +1279,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment1"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment0"
 		}
 	],
 	"kind" : "cache",

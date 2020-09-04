@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/MyCode/Cpp/GAMES101/Assignment0/build"
+			"value" : "d:/Mycode/Cpp/GAMES101/Assignment2/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -155,7 +155,7 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "CXX compiler"
+					"value" : "No help, variable specified on the command line."
 				}
 			],
 			"type" : "FILEPATH",
@@ -299,7 +299,7 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "C compiler"
+					"value" : "No help, variable specified on the command line."
 				}
 			],
 			"type" : "FILEPATH",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment0"
+			"value" : "D:/MyCode/Cpp/GAMES101/Assignment2"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -659,7 +659,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Program Files (x86)/Transformation"
+			"value" : "C:/Program Files (x86)/Rasterizer"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -879,7 +879,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "Transformation"
+			"value" : "Rasterizer"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1258,40 +1258,52 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "Transformation_BINARY_DIR",
+			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_OpenCV",
 			"properties" : 
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
+					"value" : "Details about finding OpenCV"
 				}
 			],
-			"type" : "STATIC",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment0/build"
+			"type" : "INTERNAL",
+			"value" : "[D:/CodingLibs/opencv/mingw_build][v4.4.0()]"
 		},
 		{
-			"name" : "Transformation_SOURCE_DIR",
+			"name" : "OpenCV_DIR",
 			"properties" : 
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "D:/MyCode/Cpp/GAMES101/Assignment0"
-		},
-		{
-			"name" : "eigen3_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "The directory containing a CMake configuration file for eigen3."
+					"value" : "The directory containing a CMake configuration file for OpenCV."
 				}
 			],
 			"type" : "PATH",
-			"value" : "eigen3_DIR-NOTFOUND"
+			"value" : "OpenCV_DIR-NOTFOUND"
+		},
+		{
+			"name" : "Rasterizer_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment2/build"
+		},
+		{
+			"name" : "Rasterizer_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment2"
 		}
 	],
 	"kind" : "cache",

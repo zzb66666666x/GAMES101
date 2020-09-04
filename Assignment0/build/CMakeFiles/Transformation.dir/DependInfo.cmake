@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "D:/MyCode/Cpp/GAMES101/Assignment0/main.cpp" "D:/MyCode/Cpp/GAMES101/Assignment0/build/CMakeFiles/Transformation.dir/main.cpp.obj"
+  "D:/Mycode/Cpp/GAMES101/Assignment0/main.cpp" "D:/Mycode/Cpp/GAMES101/Assignment0/build/CMakeFiles/Transformation.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "D:/CodingLibs/eigen3"
+  "D:/CodingLibs"
   )
 
 # Targets to which this target links.
