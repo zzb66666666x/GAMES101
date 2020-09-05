@@ -115,6 +115,9 @@ public:
             new_mat->Ks = 0.0;
             new_mat->specularExponent = 0;
 
+            //four params passeed inside is actually the params needed for Triangle's constructor
+            //the feature of emplace back here is actually about construct target object directly and push it
+            //without calling copy constructor
             triangles.emplace_back(face_vertices[0], face_vertices[1],
                                    face_vertices[2], new_mat);
         }
@@ -154,6 +157,10 @@ public:
 
     Bounds3 getBounds() { return bounding_box; }
 
+    //not used function!!!
+    //old fashioned getSurfaceProperties, in this project, we read the triangle mesh from 3D object
+    //the st coordinate is not defined, and the uv is also not used 
+    //the 3D bunny object doesn't have a normal mapping texture, so we manually set its surface color to be (0.5, 0.5, 0.5)
     void getSurfaceProperties(const Vector3f& P, const Vector3f& I,
                               const uint32_t& index, const Vector2f& uv,
                               Vector3f& N, Vector2f& st) const
@@ -170,6 +177,9 @@ public:
         st = st0 * (1 - uv.x - uv.y) + st1 * uv.x + st2 * uv.y;
     }
 
+    //not used function!!!
+    //this project is not related with st coordinate, we created the mesh by object_loader
+    //and we actually read in a bunny model which doesn't contain the info. of st coordinate
     Vector3f evalDiffuseColor(const Vector2f& st) const
     {
         float scale = 5;
@@ -191,6 +201,10 @@ public:
         return intersec;
     }
 
+    //the bounding box of MeshTriangle will be processed together with spheres and the
+    //bvh tree inside the scene will store these data
+    //for triangles inside the mesh, their bounding boxes will be processed with other small triangles
+    //and the bvh tree in the mesh will contain their data
     Bounds3 bounding_box;
     std::unique_ptr<Vector3f[]> vertices;
     uint32_t numTriangles;
@@ -217,7 +231,7 @@ inline Bounds3 Triangle::getBounds() { return Union(Bounds3(v0, v1), v2); }
 inline Intersection Triangle::getIntersection(Ray ray)
 {
     Intersection inter;
-
+    //implement Moller Trumbore Algorithm
     if (dotProduct(ray.direction, normal) > 0)
         return inter;
     double u, v, t_tmp = 0;
@@ -238,10 +252,22 @@ inline Intersection Triangle::getIntersection(Ray ray)
     t_tmp = dotProduct(e2, qvec) * det_inv;
 
     // TODO find ray triangle intersection
-
-
-
-
+    if ((1-u-v)>0 && u>0 && v>0 && t_tmp>0){
+        // fill in the info. of Intersection
+        // bool happened;
+        // Vector3f coords;
+        // Vector3f normal;
+        // double distance;
+        // Object* obj;
+        // Material* m;
+        inter.happened = true;
+        inter.coords = (1-u-v)*v0 + u*v1 + v*v0;
+        inter.normal = normal;
+        Vector3f light_path = inter.coords - ray.origin;
+        inter.distance = dotProduct(light_path, light_path);
+        inter.obj = this;
+        inter.m = m;
+    }
     return inter;
 }
 

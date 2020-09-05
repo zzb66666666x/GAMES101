@@ -64,18 +64,23 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         return Vector3f(0.0,0.0,0.0);
     }
     Intersection intersection = Scene::intersect(ray);
+    //the intersection contains information:
+    //--bool happened;
+    //--Vector3f coords; <-- interpolated intersection point
+    //--Vector3f normal; <-- the normal vector of intersected 
+    //--double distance;
+    //--Object* obj;
+    //--Material* m;
     Material *m = intersection.m;
     Object *hitObject = intersection.obj;
     Vector3f hitColor = this->backgroundColor;
-    //float tnear = kInfinity;
+    //the two variables are not used here
+    Vector2f st;
     Vector2f uv;
-    uint32_t index = 0;
+    //float tnear = kInfinity;
     if(intersection.happened) {
         Vector3f hitPoint = intersection.coords;
         Vector3f N = intersection.normal; // normal
-        Vector2f st; // st coordinates
-        //the function getSurfaceProperties realize the flow of parameters by passing reference of both input and output variables
-        hitObject->getSurfaceProperties(hitPoint, ray.direction, index, uv, N, st);
         switch (m->getType()) {
             case REFLECTION_AND_REFRACTION:
             {

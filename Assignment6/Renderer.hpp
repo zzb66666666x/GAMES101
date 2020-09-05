@@ -4,6 +4,9 @@
 #include "Scene.hpp"
 
 #pragma once
+
+//not used in this project, we reframed the whole structure of the code
+//we use class intersection to contain everything about the intersection info.
 struct hit_payload
 {
     float tNear;
@@ -14,6 +17,8 @@ struct hit_payload
 
 class Renderer
 {
+//no data inside this class
+//instead, we pass in the reference of scene and render it directly
 public:
     void Render(const Scene& scene);
 
