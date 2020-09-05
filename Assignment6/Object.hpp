@@ -11,6 +11,12 @@
 #include "Ray.hpp"
 #include "Intersection.hpp"
 
+//class Object
+// <-- class Sphere
+// <-- class MeshTriangle
+// <-- class Triangle
+//at the same time
+//list of Triangle objects --> data of MeshTriangle
 class Object
 {
 public:

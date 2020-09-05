@@ -1,4 +1,4 @@
-# Install script for directory: D:/Mycode/Cpp/GAMES101/Assignment6/sources
+# Install script for directory: D:/Mycode/Cpp/GAMES101/Assignment6
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

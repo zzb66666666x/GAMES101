@@ -39,6 +39,8 @@ bool rayTriangleIntersect(const Vector3f& v0, const Vector3f& v1,
     return true;
 }
 
+//the class Triangle is supporting the MeshTriangle
+//MeshTriangle is the list of triangles read from the 3D model
 class Triangle : public Object
 {
 public:
@@ -55,18 +57,17 @@ public:
         e2 = v2 - v0;
         normal = normalize(crossProduct(e1, e2));
     }
-
+    //override all the three functions about intersection defined as virtual in class Object
     bool intersect(const Ray& ray) override;
     bool intersect(const Ray& ray, float& tnear,
                    uint32_t& index) const override;
     Intersection getIntersection(Ray ray) override;
+
     void getSurfaceProperties(const Vector3f& P, const Vector3f& I,
                               const uint32_t& index, const Vector2f& uv,
                               Vector3f& N, Vector2f& st) const override
     {
-        N = normal;
-        //        throw std::runtime_error("triangle::getSurfaceProperties not
-        //        implemented.");
+        N = normal;     //let the caller know the normal vector of this triangle
     }
     Vector3f evalDiffuseColor(const Vector2f&) const override;
     Bounds3 getBounds() override;
@@ -106,9 +107,10 @@ public:
                                     std::max(max_vert.z, vert.z));
             }
 
+            //material information
             auto new_mat =
                 new Material(MaterialType::DIFFUSE_AND_GLOSSY,
-                             Vector3f(0.5, 0.5, 0.5), Vector3f(0, 0, 0));
+                             Vector3f(0.5, 0.5, 0.5), Vector3f(0, 0, 0));   
             new_mat->Kd = 0.6;
             new_mat->Ks = 0.0;
             new_mat->specularExponent = 0;
@@ -126,10 +128,12 @@ public:
         bvh = new BVHAccel(ptrs);
     }
 
+    //old fashioned intersection, not used in this project (subtitution is bvh tree used in getIntersection)
     bool intersect(const Ray& ray) { return true; }
-
+    //old fashioned intersection, not used in this project (subtitution is bvh tree used in getIntersection)
     bool intersect(const Ray& ray, float& tnear, uint32_t& index) const
     {
+        //this part was used in previous project, the assignment5, but not in this project!!!
         bool intersect = false;
         for (uint32_t k = 0; k < numTriangles; ++k) {
             const Vector3f& v0 = vertices[vertexIndex[k * 3]];
@@ -177,6 +181,7 @@ public:
 
     Intersection getIntersection(Ray ray)
     {
+        //use bvh tree to make the intersection with small triangles inside mesh very fast
         Intersection intersec;
 
         if (bvh) {
@@ -199,6 +204,7 @@ public:
     Material* m;
 };
 
+//concrete defintions of functions inside class Triangle
 inline bool Triangle::intersect(const Ray& ray) { return true; }
 inline bool Triangle::intersect(const Ray& ray, float& tnear,
                                 uint32_t& index) const

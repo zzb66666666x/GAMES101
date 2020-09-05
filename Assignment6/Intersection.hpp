@@ -9,6 +9,7 @@
 class Object;
 class Sphere;
 
+//structural data for storing info. about one intersection
 struct Intersection
 {
     Intersection(){

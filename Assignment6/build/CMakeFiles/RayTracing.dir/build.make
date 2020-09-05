@@ -61,7 +61,7 @@ RM = D:\CMake\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Mycode\Cpp\GAMES101\Assignment6\sources
+CMAKE_SOURCE_DIR = D:\Mycode\Cpp\GAMES101\Assignment6
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = D:\Mycode\Cpp\GAMES101\Assignment6\build
@@ -76,69 +76,69 @@ include CMakeFiles/RayTracing.dir/progress.make
 include CMakeFiles/RayTracing.dir/flags.make
 
 CMakeFiles/RayTracing.dir/main.cpp.obj: CMakeFiles/RayTracing.dir/flags.make
-CMakeFiles/RayTracing.dir/main.cpp.obj: D:/Mycode/Cpp/GAMES101/Assignment6/sources/main.cpp
+CMakeFiles/RayTracing.dir/main.cpp.obj: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment6\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/RayTracing.dir/main.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\main.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\sources\main.cpp
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\main.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\main.cpp
 
 CMakeFiles/RayTracing.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracing.dir/main.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\sources\main.cpp > CMakeFiles\RayTracing.dir\main.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\main.cpp > CMakeFiles\RayTracing.dir\main.cpp.i
 
 CMakeFiles/RayTracing.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracing.dir/main.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\sources\main.cpp -o CMakeFiles\RayTracing.dir\main.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\main.cpp -o CMakeFiles\RayTracing.dir\main.cpp.s
 
 CMakeFiles/RayTracing.dir/Vector.cpp.obj: CMakeFiles/RayTracing.dir/flags.make
-CMakeFiles/RayTracing.dir/Vector.cpp.obj: D:/Mycode/Cpp/GAMES101/Assignment6/sources/Vector.cpp
+CMakeFiles/RayTracing.dir/Vector.cpp.obj: ../Vector.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment6\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RayTracing.dir/Vector.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\Vector.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\sources\Vector.cpp
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\Vector.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\Vector.cpp
 
 CMakeFiles/RayTracing.dir/Vector.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracing.dir/Vector.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\sources\Vector.cpp > CMakeFiles\RayTracing.dir\Vector.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\Vector.cpp > CMakeFiles\RayTracing.dir\Vector.cpp.i
 
 CMakeFiles/RayTracing.dir/Vector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracing.dir/Vector.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\sources\Vector.cpp -o CMakeFiles\RayTracing.dir\Vector.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\Vector.cpp -o CMakeFiles\RayTracing.dir\Vector.cpp.s
 
 CMakeFiles/RayTracing.dir/Scene.cpp.obj: CMakeFiles/RayTracing.dir/flags.make
-CMakeFiles/RayTracing.dir/Scene.cpp.obj: D:/Mycode/Cpp/GAMES101/Assignment6/sources/Scene.cpp
+CMakeFiles/RayTracing.dir/Scene.cpp.obj: ../Scene.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment6\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RayTracing.dir/Scene.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\Scene.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\sources\Scene.cpp
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\Scene.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\Scene.cpp
 
 CMakeFiles/RayTracing.dir/Scene.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracing.dir/Scene.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\sources\Scene.cpp > CMakeFiles\RayTracing.dir\Scene.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\Scene.cpp > CMakeFiles\RayTracing.dir\Scene.cpp.i
 
 CMakeFiles/RayTracing.dir/Scene.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracing.dir/Scene.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\sources\Scene.cpp -o CMakeFiles\RayTracing.dir\Scene.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\Scene.cpp -o CMakeFiles\RayTracing.dir\Scene.cpp.s
 
 CMakeFiles/RayTracing.dir/BVH.cpp.obj: CMakeFiles/RayTracing.dir/flags.make
-CMakeFiles/RayTracing.dir/BVH.cpp.obj: D:/Mycode/Cpp/GAMES101/Assignment6/sources/BVH.cpp
+CMakeFiles/RayTracing.dir/BVH.cpp.obj: ../BVH.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment6\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RayTracing.dir/BVH.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\BVH.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\sources\BVH.cpp
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\BVH.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\BVH.cpp
 
 CMakeFiles/RayTracing.dir/BVH.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracing.dir/BVH.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\sources\BVH.cpp > CMakeFiles\RayTracing.dir\BVH.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\BVH.cpp > CMakeFiles\RayTracing.dir\BVH.cpp.i
 
 CMakeFiles/RayTracing.dir/BVH.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracing.dir/BVH.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\sources\BVH.cpp -o CMakeFiles\RayTracing.dir\BVH.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\BVH.cpp -o CMakeFiles\RayTracing.dir\BVH.cpp.s
 
 CMakeFiles/RayTracing.dir/Renderer.cpp.obj: CMakeFiles/RayTracing.dir/flags.make
-CMakeFiles/RayTracing.dir/Renderer.cpp.obj: D:/Mycode/Cpp/GAMES101/Assignment6/sources/Renderer.cpp
+CMakeFiles/RayTracing.dir/Renderer.cpp.obj: ../Renderer.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment6\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RayTracing.dir/Renderer.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\Renderer.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\sources\Renderer.cpp
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\RayTracing.dir\Renderer.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment6\Renderer.cpp
 
 CMakeFiles/RayTracing.dir/Renderer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RayTracing.dir/Renderer.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\sources\Renderer.cpp > CMakeFiles\RayTracing.dir\Renderer.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment6\Renderer.cpp > CMakeFiles\RayTracing.dir\Renderer.cpp.i
 
 CMakeFiles/RayTracing.dir/Renderer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RayTracing.dir/Renderer.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\sources\Renderer.cpp -o CMakeFiles\RayTracing.dir\Renderer.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment6\Renderer.cpp -o CMakeFiles\RayTracing.dir\Renderer.cpp.s
 
 # Object files for target RayTracing
 RayTracing_OBJECTS = \
@@ -173,6 +173,6 @@ CMakeFiles/RayTracing.dir/clean:
 .PHONY : CMakeFiles/RayTracing.dir/clean
 
 CMakeFiles/RayTracing.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\Mycode\Cpp\GAMES101\Assignment6\sources D:\Mycode\Cpp\GAMES101\Assignment6\sources D:\Mycode\Cpp\GAMES101\Assignment6\build D:\Mycode\Cpp\GAMES101\Assignment6\build D:\Mycode\Cpp\GAMES101\Assignment6\build\CMakeFiles\RayTracing.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\Mycode\Cpp\GAMES101\Assignment6 D:\Mycode\Cpp\GAMES101\Assignment6 D:\Mycode\Cpp\GAMES101\Assignment6\build D:\Mycode\Cpp\GAMES101\Assignment6\build D:\Mycode\Cpp\GAMES101\Assignment6\build\CMakeFiles\RayTracing.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/RayTracing.dir/depend
 

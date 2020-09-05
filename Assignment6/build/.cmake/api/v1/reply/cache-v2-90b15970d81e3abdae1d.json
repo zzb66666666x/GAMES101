@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Mycode/Cpp/GAMES101/Assignment6/sources"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment6"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1279,7 +1279,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/Mycode/Cpp/GAMES101/Assignment6/sources"
+			"value" : "D:/Mycode/Cpp/GAMES101/Assignment6"
 		}
 	],
 	"kind" : "cache",

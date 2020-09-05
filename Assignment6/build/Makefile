@@ -66,7 +66,7 @@ RM = D:\CMake\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Mycode\Cpp\GAMES101\Assignment6\sources
+CMAKE_SOURCE_DIR = D:\Mycode\Cpp\GAMES101\Assignment6
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = D:\Mycode\Cpp\GAMES101\Assignment6\build

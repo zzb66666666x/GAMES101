@@ -16,6 +16,7 @@ public:
     float radius, radius2;
     Material *m;
     Sphere(const Vector3f &c, const float &r) : center(c), radius(r), radius2(r * r), m(new Material()) {}
+    //default material for sphere is DIFFUSE & GLOSSY + no emmision + white color
     bool intersect(const Ray& ray) {
         // analytic solution
         Vector3f L = ray.origin - center;
@@ -72,6 +73,7 @@ public:
         return m->getColor();
     }
     Bounds3 getBounds(){
+        //two points are sufficient to represent the bounding box
         return Bounds3(Vector3f(center.x-radius, center.y-radius, center.z-radius),
                        Vector3f(center.x+radius, center.y+radius, center.z+radius));
     }

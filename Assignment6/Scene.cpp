@@ -12,9 +12,15 @@ void Scene::buildBVH() {
 
 Intersection Scene::intersect(const Ray &ray) const
 {
+    //In the past, we always loop over the triangles or spheres, but now we use BVH tree
+    //this bvh will check the intersection with spheres and MeshTriangle
+    //no spheres are used in this project, so this bvh has only one root
+    //then the bvh tree inside the mesh will take in charge to further check intersection with small triangles
     return this->bvh->Intersect(ray);
 }
 
+//old fashion method of getting intersection between ray and objects (by looping over everything)
+//not used in this project
 bool Scene::trace(
         const Ray &ray,
         const std::vector<Object*> &objects,
@@ -22,10 +28,12 @@ bool Scene::trace(
 {
     *hitObject = nullptr;
     for (uint32_t k = 0; k < objects.size(); ++k) {
+        //loop over every objects, and we will update the hitObject when finding smaller tNear 
         float tNearK = kInfinity;
         uint32_t indexK;
         Vector2f uvK;
         if (objects[k]->intersect(ray, tNearK, indexK) && tNearK < tNear) {
+            //objects is a vector of pointers, that's why we pass in double pointer hitObject here
             *hitObject = objects[k];
             tNear = tNearK;
             index = indexK;
@@ -59,16 +67,15 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
     Material *m = intersection.m;
     Object *hitObject = intersection.obj;
     Vector3f hitColor = this->backgroundColor;
-//    float tnear = kInfinity;
+    //float tnear = kInfinity;
     Vector2f uv;
     uint32_t index = 0;
     if(intersection.happened) {
-
         Vector3f hitPoint = intersection.coords;
         Vector3f N = intersection.normal; // normal
         Vector2f st; // st coordinates
+        //the function getSurfaceProperties realize the flow of parameters by passing reference of both input and output variables
         hitObject->getSurfaceProperties(hitPoint, ray.direction, index, uv, N, st);
-//        Vector3f tmp = hitPoint;
         switch (m->getType()) {
             case REFLECTION_AND_REFRACTION:
             {
@@ -129,7 +136,9 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
                         Object *shadowHitObject = nullptr;
                         float tNearShadow = kInfinity;
                         // is the point in shadow, and is the nearest occluding object closer to the object than the light itself?
-                        bool inShadow = bvh->Intersect(Ray(shadowPointOrig, lightDir)).happened;
+                        Intersection test = bvh->Intersect(Ray(shadowPointOrig, lightDir));
+                        bool inShadow = test.happened && (test.distance < lightDistance2);
+                        //intensity * LdotN is measuring the direct light intensity by cosine law
                         lightAmt += (1 - inShadow) * get_lights()[i]->intensity * LdotN;
                         Vector3f reflectionDirection = reflect(-lightDir, N);
                         specularColor += powf(std::max(0.f, -dotProduct(reflectionDirection, ray.direction)),

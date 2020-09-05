@@ -13,8 +13,10 @@ int main(int argc, char** argv)
 {
     Scene scene(1280, 960);
 
+    //two bvh will be built, one belongs to the scene, one belongs to the MeshTriangles
+    //in this project, no spheres will be added, so the bvh for scene only contains one root which is the MeshTriangle
+    //in the MeshTriangle which reads the triagles information from object_loader, another bvh takes in charge of all the triangles
     MeshTriangle bunny("../models/bunny/bunny.obj");
-
     scene.Add(&bunny);
     scene.Add(std::make_unique<Light>(Vector3f(-20, 70, 20), 1));
     scene.Add(std::make_unique<Light>(Vector3f(20, 70, 20), 1));
