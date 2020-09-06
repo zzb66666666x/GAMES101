@@ -29,7 +29,9 @@ class Bounds3
 
     Vector3f Diagonal() const { return pMax - pMin; }
     int maxExtent() const
-    {
+    {   
+        //specify the longest axis of the box
+        //the longest axis of the box will be splited
         Vector3f d = Diagonal();
         if (d.x > d.y && d.x > d.z)
             return 0;
@@ -84,19 +86,27 @@ class Bounds3
         return (i == 0) ? pMin : pMax;
     }
 
-    inline bool IntersectP(const Ray& ray, const Vector3f& invDir,
-                           const std::array<int, 3>& dirisNeg) const;
+    inline bool IntersectP(const Ray& ray) const;
 };
 
 
 
-inline bool Bounds3::IntersectP(const Ray& ray, const Vector3f& invDir,
-                                const std::array<int, 3>& dirIsNeg) const
+inline bool Bounds3::IntersectP(const Ray& ray) const
 {
     // invDir: ray direction(x,y,z), invDir=(1.0/x,1.0/y,1.0/z), use this because Multiply is faster that Division
     // dirIsNeg: ray direction(x,y,z), dirIsNeg=[int(x>0),int(y>0),int(z>0)], use this to simplify your logic
     // TODO test if ray bound intersects
-    
+    std::array<bool,3> positive_dir = {(bool)(ray.direction.x>0),(bool)(ray.direction.y>0),(bool)(ray.direction.z>0)};
+    Vector3f min_point_for_ray(positive_dir[0]?pMin.x:pMax.x, positive_dir[1]?pMin.y:pMax.y, positive_dir[2]?pMin.z:pMax.z);
+    Vector3f max_point_for_ray(positive_dir[0]?pMax.x:pMin.x, positive_dir[1]?pMax.y:pMin.y, positive_dir[2]?pMax.z:pMin.z);
+    Vector3f vec_tmin = (min_point_for_ray - ray.origin)*ray.direction_inv;
+    Vector3f vec_tmax = (max_point_for_ray - ray.origin)*ray.direction_inv;
+    float t_enter = max_element(vec_tmin);
+    float t_exit = min_element(vec_tmax);
+    if (t_enter<t_exit && t_exit>0){
+        return true;
+    }
+    return false;
 }
 
 inline Bounds3 Union(const Bounds3& b1, const Bounds3& b2)
@@ -110,6 +120,7 @@ inline Bounds3 Union(const Bounds3& b1, const Bounds3& b2)
 inline Bounds3 Union(const Bounds3& b, const Vector3f& p)
 {
     Bounds3 ret;
+    //the Vector3f::min is basically doing the elementwise min and return a new vector 
     ret.pMin = Vector3f::Min(b.pMin, p);
     ret.pMax = Vector3f::Max(b.pMax, p);
     return ret;

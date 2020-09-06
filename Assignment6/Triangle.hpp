@@ -193,11 +193,9 @@ public:
     {
         //use bvh tree to make the intersection with small triangles inside mesh very fast
         Intersection intersec;
-
         if (bvh) {
-            intersec = bvh->Intersect(ray);
+            intersec = (this->bvh)->Intersect(ray);
         }
-
         return intersec;
     }
 
@@ -219,7 +217,10 @@ public:
 };
 
 //concrete defintions of functions inside class Triangle
+
+//not used functions here!!!
 inline bool Triangle::intersect(const Ray& ray) { return true; }
+//not used functions here!!!
 inline bool Triangle::intersect(const Ray& ray, float& tnear,
                                 uint32_t& index) const
 {
@@ -252,7 +253,7 @@ inline Intersection Triangle::getIntersection(Ray ray)
     t_tmp = dotProduct(e2, qvec) * det_inv;
 
     // TODO find ray triangle intersection
-    if ((1-u-v)>0 && u>0 && v>0 && t_tmp>0){
+    if (t_tmp>0){
         // fill in the info. of Intersection
         // bool happened;
         // Vector3f coords;
@@ -261,7 +262,7 @@ inline Intersection Triangle::getIntersection(Ray ray)
         // Object* obj;
         // Material* m;
         inter.happened = true;
-        inter.coords = (1-u-v)*v0 + u*v1 + v*v0;
+        inter.coords = ray(t_tmp);
         inter.normal = normal;
         Vector3f light_path = inter.coords - ray.origin;
         inter.distance = dotProduct(light_path, light_path);

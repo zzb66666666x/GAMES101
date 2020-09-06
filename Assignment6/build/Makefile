@@ -222,33 +222,6 @@ Scene.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\RayTracing.dir\build.make CMakeFiles/RayTracing.dir/Scene.cpp.s
 .PHONY : Scene.cpp.s
 
-Vector.obj: Vector.cpp.obj
-
-.PHONY : Vector.obj
-
-# target to build an object file
-Vector.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\RayTracing.dir\build.make CMakeFiles/RayTracing.dir/Vector.cpp.obj
-.PHONY : Vector.cpp.obj
-
-Vector.i: Vector.cpp.i
-
-.PHONY : Vector.i
-
-# target to preprocess a source file
-Vector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\RayTracing.dir\build.make CMakeFiles/RayTracing.dir/Vector.cpp.i
-.PHONY : Vector.cpp.i
-
-Vector.s: Vector.cpp.s
-
-.PHONY : Vector.s
-
-# target to generate assembly for a file
-Vector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\RayTracing.dir\build.make CMakeFiles/RayTracing.dir/Vector.cpp.s
-.PHONY : Vector.cpp.s
-
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -294,9 +267,6 @@ help:
 	@echo ... Scene.obj
 	@echo ... Scene.i
 	@echo ... Scene.s
-	@echo ... Vector.obj
-	@echo ... Vector.i
-	@echo ... Vector.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

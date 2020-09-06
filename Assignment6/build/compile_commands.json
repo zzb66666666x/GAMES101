@@ -6,11 +6,6 @@
 },
 {
   "directory": "D:/Mycode/Cpp/GAMES101/Assignment6/build",
-  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Vector.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\Vector.cpp",
-  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/Vector.cpp"
-},
-{
-  "directory": "D:/Mycode/Cpp/GAMES101/Assignment6/build",
   "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Scene.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\Scene.cpp",
   "file": "D:/Mycode/Cpp/GAMES101/Assignment6/Scene.cpp"
 },
