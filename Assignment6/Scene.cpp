@@ -19,31 +19,6 @@ Intersection Scene::intersect(const Ray &ray) const
     return this->bvh->Intersect(ray);
 }
 
-//old fashion method of getting intersection between ray and objects (by looping over everything)
-//not used in this project
-bool Scene::trace(
-        const Ray &ray,
-        const std::vector<Object*> &objects,
-        float &tNear, uint32_t &index, Object **hitObject)
-{
-    *hitObject = nullptr;
-    for (uint32_t k = 0; k < objects.size(); ++k) {
-        //loop over every objects, and we will update the hitObject when finding smaller tNear 
-        float tNearK = kInfinity;
-        uint32_t indexK;
-        Vector2f uvK;
-        if (objects[k]->intersect(ray, tNearK, indexK) && tNearK < tNear) {
-            //objects is a vector of pointers, that's why we pass in double pointer hitObject here
-            *hitObject = objects[k];
-            tNear = tNearK;
-            index = indexK;
-        }
-    }
-
-
-    return (*hitObject != nullptr);
-}
-
 // Implementation of the Whitted-syle light transport algorithm (E [S*] (D|G) L)
 //
 // This function is the function that compute the color at the intersection point
@@ -74,10 +49,6 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
     Material *m = intersection.m;
     Object *hitObject = intersection.obj;
     Vector3f hitColor = this->backgroundColor;
-    //the two variables are not used here
-    Vector2f st;
-    Vector2f uv;
-    //float tnear = kInfinity;
     if(intersection.happened) {
         Vector3f hitPoint = intersection.coords;
         Vector3f N = intersection.normal; // normal
@@ -150,7 +121,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
                                               m->specularExponent) * get_lights()[i]->intensity;
                     }
                 }
-                hitColor = lightAmt * (hitObject->evalDiffuseColor(st) * m->Kd + specularColor * m->Ks);
+                hitColor = lightAmt * (hitObject->evalDiffuseColor() * m->Kd + specularColor * m->Ks);
                 break;
             }
         }

@@ -9,36 +9,6 @@
 #include <cassert>
 #include <array>
 
-bool rayTriangleIntersect(const Vector3f& v0, const Vector3f& v1,
-                          const Vector3f& v2, const Vector3f& orig,
-                          const Vector3f& dir, float& tnear, float& u, float& v)
-{
-    Vector3f edge1 = v1 - v0;
-    Vector3f edge2 = v2 - v0;
-    Vector3f pvec = crossProduct(dir, edge2);
-    float det = dotProduct(edge1, pvec);
-    if (det == 0 || det < 0)
-        return false;
-
-    Vector3f tvec = orig - v0;
-    u = dotProduct(tvec, pvec);
-    if (u < 0 || u > det)
-        return false;
-
-    Vector3f qvec = crossProduct(tvec, edge1);
-    v = dotProduct(dir, qvec);
-    if (v < 0 || u + v > det)
-        return false;
-
-    float invDet = 1 / det;
-
-    tnear = dotProduct(edge2, qvec) * invDet;
-    u *= invDet;
-    v *= invDet;
-
-    return true;
-}
-
 //the class Triangle is supporting the MeshTriangle
 //MeshTriangle is the list of triangles read from the 3D model
 class Triangle : public Object
@@ -57,19 +27,11 @@ public:
         e2 = v2 - v0;
         normal = normalize(crossProduct(e1, e2));
     }
-    //override all the three functions about intersection defined as virtual in class Object
-    bool intersect(const Ray& ray) override;
-    bool intersect(const Ray& ray, float& tnear,
-                   uint32_t& index) const override;
+
     Intersection getIntersection(Ray ray) override;
 
-    void getSurfaceProperties(const Vector3f& P, const Vector3f& I,
-                              const uint32_t& index, const Vector2f& uv,
-                              Vector3f& N, Vector2f& st) const override
-    {
-        N = normal;     //let the caller know the normal vector of this triangle
-    }
-    Vector3f evalDiffuseColor(const Vector2f&) const override;
+    Vector3f evalDiffuseColor() const override;
+    
     Bounds3 getBounds() override;
 };
 
@@ -78,12 +40,11 @@ class MeshTriangle : public Object
 public:
     MeshTriangle(const std::string& filename)
     {
+        numTriangles = 0;
         objl::Loader loader;
         loader.LoadFile(filename);
-
         assert(loader.LoadedMeshes.size() == 1);
         auto mesh = loader.LoadedMeshes[0];
-
         Vector3f min_vert = Vector3f{std::numeric_limits<float>::infinity(),
                                      std::numeric_limits<float>::infinity(),
                                      std::numeric_limits<float>::infinity()};
@@ -120,74 +81,19 @@ public:
             //without calling copy constructor
             triangles.emplace_back(face_vertices[0], face_vertices[1],
                                    face_vertices[2], new_mat);
+            numTriangles++;
         }
-
         bounding_box = Bounds3(min_vert, max_vert);
-
         std::vector<Object*> ptrs;
         for (auto& tri : triangles)
             ptrs.push_back(&tri);
-
         bvh = new BVHAccel(ptrs);
-    }
-
-    //old fashioned intersection, not used in this project (subtitution is bvh tree used in getIntersection)
-    bool intersect(const Ray& ray) { return true; }
-    //old fashioned intersection, not used in this project (subtitution is bvh tree used in getIntersection)
-    bool intersect(const Ray& ray, float& tnear, uint32_t& index) const
-    {
-        //this part was used in previous project, the assignment5, but not in this project!!!
-        bool intersect = false;
-        for (uint32_t k = 0; k < numTriangles; ++k) {
-            const Vector3f& v0 = vertices[vertexIndex[k * 3]];
-            const Vector3f& v1 = vertices[vertexIndex[k * 3 + 1]];
-            const Vector3f& v2 = vertices[vertexIndex[k * 3 + 2]];
-            float t, u, v;
-            if (rayTriangleIntersect(v0, v1, v2, ray.origin, ray.direction, t,
-                                     u, v) &&
-                t < tnear) {
-                tnear = t;
-                index = k;
-                intersect |= true;
-            }
-        }
-
-        return intersect;
     }
 
     Bounds3 getBounds() { return bounding_box; }
 
-    //not used function!!!
-    //old fashioned getSurfaceProperties, in this project, we read the triangle mesh from 3D object
-    //the st coordinate is not defined, and the uv is also not used 
-    //the 3D bunny object doesn't have a normal mapping texture, so we manually set its surface color to be (0.5, 0.5, 0.5)
-    void getSurfaceProperties(const Vector3f& P, const Vector3f& I,
-                              const uint32_t& index, const Vector2f& uv,
-                              Vector3f& N, Vector2f& st) const
-    {
-        const Vector3f& v0 = vertices[vertexIndex[index * 3]];
-        const Vector3f& v1 = vertices[vertexIndex[index * 3 + 1]];
-        const Vector3f& v2 = vertices[vertexIndex[index * 3 + 2]];
-        Vector3f e0 = normalize(v1 - v0);
-        Vector3f e1 = normalize(v2 - v1);
-        N = normalize(crossProduct(e0, e1));
-        const Vector2f& st0 = stCoordinates[vertexIndex[index * 3]];
-        const Vector2f& st1 = stCoordinates[vertexIndex[index * 3 + 1]];
-        const Vector2f& st2 = stCoordinates[vertexIndex[index * 3 + 2]];
-        st = st0 * (1 - uv.x - uv.y) + st1 * uv.x + st2 * uv.y;
-    }
-
-    //not used function!!!
-    //this project is not related with st coordinate, we created the mesh by object_loader
-    //and we actually read in a bunny model which doesn't contain the info. of st coordinate
-    Vector3f evalDiffuseColor(const Vector2f& st) const
-    {
-        float scale = 5;
-        float pattern =
-            (fmodf(st.x * scale, 1) > 0.5) ^ (fmodf(st.y * scale, 1) > 0.5);
-        return lerp(Vector3f(0.815, 0.235, 0.031),
-                    Vector3f(0.937, 0.937, 0.231), pattern);
-    }
+    //not used function !!!
+    Vector3f evalDiffuseColor() const {return Vector3f();}
 
     Intersection getIntersection(Ray ray)
     {
@@ -204,28 +110,13 @@ public:
     //for triangles inside the mesh, their bounding boxes will be processed with other small triangles
     //and the bvh tree in the mesh will contain their data
     Bounds3 bounding_box;
-    std::unique_ptr<Vector3f[]> vertices;
     uint32_t numTriangles;
-    std::unique_ptr<uint32_t[]> vertexIndex;
-    std::unique_ptr<Vector2f[]> stCoordinates;
-
     std::vector<Triangle> triangles;
-
     BVHAccel* bvh;
-
     Material* m;
 };
 
 //concrete defintions of functions inside class Triangle
-
-//not used functions here!!!
-inline bool Triangle::intersect(const Ray& ray) { return true; }
-//not used functions here!!!
-inline bool Triangle::intersect(const Ray& ray, float& tnear,
-                                uint32_t& index) const
-{
-    return false;
-}
 
 inline Bounds3 Triangle::getBounds() { return Union(Bounds3(v0, v1), v2); }
 
@@ -272,7 +163,7 @@ inline Intersection Triangle::getIntersection(Ray ray)
     return inter;
 }
 
-inline Vector3f Triangle::evalDiffuseColor(const Vector2f&) const
+inline Vector3f Triangle::evalDiffuseColor() const
 {
     return Vector3f(0.5, 0.5, 0.5);
 }
