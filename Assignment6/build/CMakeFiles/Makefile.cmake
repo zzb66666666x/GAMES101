@@ -30,11 +30,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "D:/CMake/share/cmake-3.18/Modules/Platform/Windows-windres.cmake"
   "D:/CMake/share/cmake-3.18/Modules/Platform/Windows.cmake"
   "D:/CMake/share/cmake-3.18/Modules/Platform/WindowsPaths.cmake"
+  "../CMakeLists.txt"
   "CMakeFiles/3.18.0-rc3/CMakeCCompiler.cmake"
   "CMakeFiles/3.18.0-rc3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.18.0-rc3/CMakeRCCompiler.cmake"
   "CMakeFiles/3.18.0-rc3/CMakeSystem.cmake"
-  "D:/Mycode/Cpp/GAMES101/Assignment6/sources/CMakeLists.txt"
   )
 
 # The corresponding makefile is:

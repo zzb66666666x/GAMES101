@@ -1,27 +1,22 @@
 [
 {
   "directory": "D:/Mycode/Cpp/GAMES101/Assignment6/build",
-  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\main.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\sources\\main.cpp",
-  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/sources/main.cpp"
+  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\main.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\main.cpp",
+  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/main.cpp"
 },
 {
   "directory": "D:/Mycode/Cpp/GAMES101/Assignment6/build",
-  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Vector.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\sources\\Vector.cpp",
-  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/sources/Vector.cpp"
+  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Scene.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\Scene.cpp",
+  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/Scene.cpp"
 },
 {
   "directory": "D:/Mycode/Cpp/GAMES101/Assignment6/build",
-  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Scene.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\sources\\Scene.cpp",
-  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/sources/Scene.cpp"
+  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\BVH.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\BVH.cpp",
+  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/BVH.cpp"
 },
 {
   "directory": "D:/Mycode/Cpp/GAMES101/Assignment6/build",
-  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\BVH.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\sources\\BVH.cpp",
-  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/sources/BVH.cpp"
-},
-{
-  "directory": "D:/Mycode/Cpp/GAMES101/Assignment6/build",
-  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Renderer.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\sources\\Renderer.cpp",
-  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/sources/Renderer.cpp"
+  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe   -g -std=gnu++17 -o CMakeFiles\\RayTracing.dir\\Renderer.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment6\\Renderer.cpp",
+  "file": "D:/Mycode/Cpp/GAMES101/Assignment6/Renderer.cpp"
 }
 ]

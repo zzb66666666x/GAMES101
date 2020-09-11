@@ -181,10 +181,10 @@ Vector3f castRay(const Vector3f &orig, const Vector3f &dir,
             case REFLECTION:
             {
                 float kr = fresnel(dir, N, payload->hit_obj->ior);  //energy loss by fresnel's law
-                Vector3f reflectionDirection = reflect(dir, N);
+                Vector3f reflectionDirection = normalize(reflect(dir, N));
                 Vector3f reflectionRayOrig = (dotProduct(reflectionDirection, N) < 0) ?
-                                             hitPoint + N * scene.epsilon :
-                                             hitPoint - N * scene.epsilon;
+                                             hitPoint - N * scene.epsilon :
+                                             hitPoint + N * scene.epsilon;
                 hitColor = castRay(reflectionRayOrig, reflectionDirection, scene, depth + 1) * kr;
                 break;
             }

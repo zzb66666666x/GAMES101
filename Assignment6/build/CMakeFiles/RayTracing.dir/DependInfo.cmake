@@ -4,11 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "D:/Mycode/Cpp/GAMES101/Assignment6/sources/BVH.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/BVH.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment6/sources/Renderer.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/Renderer.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment6/sources/Scene.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/Scene.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment6/sources/Vector.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/Vector.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment6/sources/main.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/main.cpp.obj"
+  "D:/Mycode/Cpp/GAMES101/Assignment6/BVH.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/BVH.cpp.obj"
+  "D:/Mycode/Cpp/GAMES101/Assignment6/Renderer.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/Renderer.cpp.obj"
+  "D:/Mycode/Cpp/GAMES101/Assignment6/Scene.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/Scene.cpp.obj"
+  "D:/Mycode/Cpp/GAMES101/Assignment6/main.cpp" "D:/Mycode/Cpp/GAMES101/Assignment6/build/CMakeFiles/RayTracing.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

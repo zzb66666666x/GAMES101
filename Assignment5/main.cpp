@@ -17,7 +17,7 @@ int main()
     //when the object of unique_ptr is out of its life circle, the pointer inside it will also be released
     auto sph1 = std::make_unique<Sphere>(Vector3f(-1, 0, -12), 2);  //centered at (-1,0,12) with radius 2
     sph1->materialType = DIFFUSE_AND_GLOSSY;
-    sph1->diffuseColor = Vector3f(0.6, 0.7, 0.8);
+    sph1->diffuseColor = Vector3f(0.815, 0.635, 0.231);
 
     auto sph2 = std::make_unique<Sphere>(Vector3f(0.5, -0.5, -8), 1.5);
     sph2->ior = 1.5;
