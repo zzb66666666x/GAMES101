@@ -1,7 +1,7 @@
 [
 {
-  "directory": "D:/Mycode/Cpp/GAMES101/Assignment4/build",
-  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe  @CMakeFiles/BezierCurve.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\BezierCurve.dir\\main.cpp.obj -c D:\\Mycode\\Cpp\\GAMES101\\Assignment4\\main.cpp",
-  "file": "D:/Mycode/Cpp/GAMES101/Assignment4/main.cpp"
+  "directory": "D:/MyCode/Cpp/GAMES101/Assignment4/build",
+  "command": "D:\\MinGW\\TDM64GCC\\bin\\g++.exe  @CMakeFiles/BezierCurve.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\BezierCurve.dir\\main.cpp.obj -c D:\\MyCode\\Cpp\\GAMES101\\Assignment4\\main.cpp",
+  "file": "D:/MyCode/Cpp/GAMES101/Assignment4/main.cpp"
 }
 ]
