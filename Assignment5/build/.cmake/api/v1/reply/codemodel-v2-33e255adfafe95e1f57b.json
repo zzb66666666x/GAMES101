@@ -26,7 +26,7 @@
 					[
 						0
 					],
-					"name" : "BezierCurve",
+					"name" : "RayTracing",
 					"targetIndexes" : 
 					[
 						0
@@ -37,9 +37,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "BezierCurve::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-BezierCurve-Debug-5913b2e0a5f21b99dad4.json",
-					"name" : "BezierCurve",
+					"id" : "RayTracing::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-RayTracing-Debug-92a7258cf799dfe60144.json",
+					"name" : "RayTracing",
 					"projectIndex" : 0
 				}
 			]
@@ -48,8 +48,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/MyCode/Cpp/GAMES101/Assignment4/build",
-		"source" : "D:/MyCode/Cpp/GAMES101/Assignment4"
+		"build" : "D:/MyCode/Cpp/GAMES101/Assignment5/build",
+		"source" : "D:/MyCode/Cpp/GAMES101/Assignment5"
 	},
 	"version" : 
 	{
