@@ -61,10 +61,10 @@ RM = D:\CMake\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\Mycode\Cpp\GAMES101\Assignment3
+CMAKE_SOURCE_DIR = D:\MyCode\Cpp\GAMES101\Assignment3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\Mycode\Cpp\GAMES101\Assignment3\build
+CMAKE_BINARY_DIR = D:\MyCode\Cpp\GAMES101\Assignment3\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Rasterizer.dir/depend.make
@@ -78,58 +78,58 @@ include CMakeFiles/Rasterizer.dir/flags.make
 CMakeFiles/Rasterizer.dir/main.cpp.obj: CMakeFiles/Rasterizer.dir/flags.make
 CMakeFiles/Rasterizer.dir/main.cpp.obj: CMakeFiles/Rasterizer.dir/includes_CXX.rsp
 CMakeFiles/Rasterizer.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Rasterizer.dir/main.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Rasterizer.dir\main.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment3\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MyCode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Rasterizer.dir/main.cpp.obj"
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Rasterizer.dir\main.cpp.obj -c D:\MyCode\Cpp\GAMES101\Assignment3\main.cpp
 
 CMakeFiles/Rasterizer.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Rasterizer.dir/main.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment3\main.cpp > CMakeFiles\Rasterizer.dir\main.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MyCode\Cpp\GAMES101\Assignment3\main.cpp > CMakeFiles\Rasterizer.dir\main.cpp.i
 
 CMakeFiles/Rasterizer.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Rasterizer.dir/main.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment3\main.cpp -o CMakeFiles\Rasterizer.dir\main.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MyCode\Cpp\GAMES101\Assignment3\main.cpp -o CMakeFiles\Rasterizer.dir\main.cpp.s
 
 CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj: CMakeFiles/Rasterizer.dir/flags.make
 CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj: CMakeFiles/Rasterizer.dir/includes_CXX.rsp
 CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj: ../rasterizer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Rasterizer.dir\rasterizer.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment3\rasterizer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MyCode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj"
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Rasterizer.dir\rasterizer.cpp.obj -c D:\MyCode\Cpp\GAMES101\Assignment3\rasterizer.cpp
 
 CMakeFiles/Rasterizer.dir/rasterizer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Rasterizer.dir/rasterizer.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment3\rasterizer.cpp > CMakeFiles\Rasterizer.dir\rasterizer.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MyCode\Cpp\GAMES101\Assignment3\rasterizer.cpp > CMakeFiles\Rasterizer.dir\rasterizer.cpp.i
 
 CMakeFiles/Rasterizer.dir/rasterizer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Rasterizer.dir/rasterizer.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment3\rasterizer.cpp -o CMakeFiles\Rasterizer.dir\rasterizer.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MyCode\Cpp\GAMES101\Assignment3\rasterizer.cpp -o CMakeFiles\Rasterizer.dir\rasterizer.cpp.s
 
 CMakeFiles/Rasterizer.dir/Triangle.cpp.obj: CMakeFiles/Rasterizer.dir/flags.make
 CMakeFiles/Rasterizer.dir/Triangle.cpp.obj: CMakeFiles/Rasterizer.dir/includes_CXX.rsp
 CMakeFiles/Rasterizer.dir/Triangle.cpp.obj: ../Triangle.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Rasterizer.dir/Triangle.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Rasterizer.dir\Triangle.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment3\Triangle.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MyCode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Rasterizer.dir/Triangle.cpp.obj"
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Rasterizer.dir\Triangle.cpp.obj -c D:\MyCode\Cpp\GAMES101\Assignment3\Triangle.cpp
 
 CMakeFiles/Rasterizer.dir/Triangle.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Rasterizer.dir/Triangle.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment3\Triangle.cpp > CMakeFiles\Rasterizer.dir\Triangle.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MyCode\Cpp\GAMES101\Assignment3\Triangle.cpp > CMakeFiles\Rasterizer.dir\Triangle.cpp.i
 
 CMakeFiles/Rasterizer.dir/Triangle.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Rasterizer.dir/Triangle.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment3\Triangle.cpp -o CMakeFiles\Rasterizer.dir\Triangle.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MyCode\Cpp\GAMES101\Assignment3\Triangle.cpp -o CMakeFiles\Rasterizer.dir\Triangle.cpp.s
 
 CMakeFiles/Rasterizer.dir/Texture.cpp.obj: CMakeFiles/Rasterizer.dir/flags.make
 CMakeFiles/Rasterizer.dir/Texture.cpp.obj: CMakeFiles/Rasterizer.dir/includes_CXX.rsp
 CMakeFiles/Rasterizer.dir/Texture.cpp.obj: ../Texture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Rasterizer.dir/Texture.cpp.obj"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Rasterizer.dir\Texture.cpp.obj -c D:\Mycode\Cpp\GAMES101\Assignment3\Texture.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\MyCode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Rasterizer.dir/Texture.cpp.obj"
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Rasterizer.dir\Texture.cpp.obj -c D:\MyCode\Cpp\GAMES101\Assignment3\Texture.cpp
 
 CMakeFiles/Rasterizer.dir/Texture.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Rasterizer.dir/Texture.cpp.i"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Mycode\Cpp\GAMES101\Assignment3\Texture.cpp > CMakeFiles\Rasterizer.dir\Texture.cpp.i
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\MyCode\Cpp\GAMES101\Assignment3\Texture.cpp > CMakeFiles\Rasterizer.dir\Texture.cpp.i
 
 CMakeFiles/Rasterizer.dir/Texture.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Rasterizer.dir/Texture.cpp.s"
-	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Mycode\Cpp\GAMES101\Assignment3\Texture.cpp -o CMakeFiles\Rasterizer.dir\Texture.cpp.s
+	D:\MinGW\TDM64GCC\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\MyCode\Cpp\GAMES101\Assignment3\Texture.cpp -o CMakeFiles\Rasterizer.dir\Texture.cpp.s
 
 # Object files for target Rasterizer
 Rasterizer_OBJECTS = \
@@ -164,7 +164,7 @@ Rasterizer.exe: D:/CodingLibs/opencv/mingw_build/lib/libopencv_core440.dll.a
 Rasterizer.exe: CMakeFiles/Rasterizer.dir/linklibs.rsp
 Rasterizer.exe: CMakeFiles/Rasterizer.dir/objects1.rsp
 Rasterizer.exe: CMakeFiles/Rasterizer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Mycode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Rasterizer.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\MyCode\Cpp\GAMES101\Assignment3\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Rasterizer.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Rasterizer.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -177,6 +177,6 @@ CMakeFiles/Rasterizer.dir/clean:
 .PHONY : CMakeFiles/Rasterizer.dir/clean
 
 CMakeFiles/Rasterizer.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\Mycode\Cpp\GAMES101\Assignment3 D:\Mycode\Cpp\GAMES101\Assignment3 D:\Mycode\Cpp\GAMES101\Assignment3\build D:\Mycode\Cpp\GAMES101\Assignment3\build D:\Mycode\Cpp\GAMES101\Assignment3\build\CMakeFiles\Rasterizer.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\MyCode\Cpp\GAMES101\Assignment3 D:\MyCode\Cpp\GAMES101\Assignment3 D:\MyCode\Cpp\GAMES101\Assignment3\build D:\MyCode\Cpp\GAMES101\Assignment3\build D:\MyCode\Cpp\GAMES101\Assignment3\build\CMakeFiles\Rasterizer.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Rasterizer.dir/depend
 

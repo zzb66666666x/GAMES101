@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "D:/Mycode/Cpp/GAMES101/Assignment3/Texture.cpp" "D:/Mycode/Cpp/GAMES101/Assignment3/build/CMakeFiles/Rasterizer.dir/Texture.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment3/Triangle.cpp" "D:/Mycode/Cpp/GAMES101/Assignment3/build/CMakeFiles/Rasterizer.dir/Triangle.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment3/main.cpp" "D:/Mycode/Cpp/GAMES101/Assignment3/build/CMakeFiles/Rasterizer.dir/main.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment3/rasterizer.cpp" "D:/Mycode/Cpp/GAMES101/Assignment3/build/CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj"
+  "D:/MyCode/Cpp/GAMES101/Assignment3/Texture.cpp" "D:/MyCode/Cpp/GAMES101/Assignment3/build/CMakeFiles/Rasterizer.dir/Texture.cpp.obj"
+  "D:/MyCode/Cpp/GAMES101/Assignment3/Triangle.cpp" "D:/MyCode/Cpp/GAMES101/Assignment3/build/CMakeFiles/Rasterizer.dir/Triangle.cpp.obj"
+  "D:/MyCode/Cpp/GAMES101/Assignment3/main.cpp" "D:/MyCode/Cpp/GAMES101/Assignment3/build/CMakeFiles/Rasterizer.dir/main.cpp.obj"
+  "D:/MyCode/Cpp/GAMES101/Assignment3/rasterizer.cpp" "D:/MyCode/Cpp/GAMES101/Assignment3/build/CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

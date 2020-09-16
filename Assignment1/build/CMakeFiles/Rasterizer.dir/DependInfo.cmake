@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "D:/Mycode/Cpp/GAMES101/Assignment1/Triangle.cpp" "D:/Mycode/Cpp/GAMES101/Assignment1/build/CMakeFiles/Rasterizer.dir/Triangle.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment1/main.cpp" "D:/Mycode/Cpp/GAMES101/Assignment1/build/CMakeFiles/Rasterizer.dir/main.cpp.obj"
-  "D:/Mycode/Cpp/GAMES101/Assignment1/rasterizer.cpp" "D:/Mycode/Cpp/GAMES101/Assignment1/build/CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj"
+  "D:/MyCode/Cpp/GAMES101/Assignment1/Triangle.cpp" "D:/MyCode/Cpp/GAMES101/Assignment1/build/CMakeFiles/Rasterizer.dir/Triangle.cpp.obj"
+  "D:/MyCode/Cpp/GAMES101/Assignment1/main.cpp" "D:/MyCode/Cpp/GAMES101/Assignment1/build/CMakeFiles/Rasterizer.dir/main.cpp.obj"
+  "D:/MyCode/Cpp/GAMES101/Assignment1/rasterizer.cpp" "D:/MyCode/Cpp/GAMES101/Assignment1/build/CMakeFiles/Rasterizer.dir/rasterizer.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
