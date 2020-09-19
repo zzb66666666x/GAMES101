@@ -230,6 +230,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
                 rgb = t.getColor();
                 int ind = get_index(x,y);
                 if (depth_buf[ind]>z_interpolated){
+                    depth_buf[ind] = z_interpolated;
                     set_pixel(point, rgb);
                 }
             }

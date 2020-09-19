@@ -2594,31 +2594,11 @@ D:/CodingLibs/opencv/sources/modules/videoio/include/opencv2/videoio.hpp
 opencv2/core.hpp
 D:/CodingLibs/opencv/sources/modules/videoio/include/opencv2/opencv2/core.hpp
 
-D:/MyCode/Cpp/GAMES101/Assignment2/Triangle.cpp
-Triangle.hpp
-D:/MyCode/Cpp/GAMES101/Assignment2/Triangle.hpp
-algorithm
--
-array
--
-
 D:/MyCode/Cpp/GAMES101/Assignment2/Triangle.hpp
 eigen3/Eigen/Eigen
 -
 
 D:/MyCode/Cpp/GAMES101/Assignment2/global.hpp
-
-D:/MyCode/Cpp/GAMES101/Assignment2/main.cpp
-iostream
--
-opencv2/opencv.hpp
--
-rasterizer.hpp
-D:/MyCode/Cpp/GAMES101/Assignment2/rasterizer.hpp
-global.hpp
-D:/MyCode/Cpp/GAMES101/Assignment2/global.hpp
-Triangle.hpp
-D:/MyCode/Cpp/GAMES101/Assignment2/Triangle.hpp
 
 D:/MyCode/Cpp/GAMES101/Assignment2/rasterizer.cpp
 algorithm
