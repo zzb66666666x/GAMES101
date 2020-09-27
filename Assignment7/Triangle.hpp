@@ -253,7 +253,22 @@ inline Intersection Triangle::getIntersection(Ray ray)
     t_tmp = dotProduct(e2, qvec) * det_inv;
 
     // TODO find ray triangle intersection
-
+    if (t_tmp>0){
+        // fill in the info. of Intersection
+        // bool happened;
+        // Vector3f coords;
+        // Vector3f normal;
+        // double distance;
+        // Object* obj;
+        // Material* m;
+        inter.happened = true;
+        inter.coords = ray(t_tmp);
+        inter.normal = normal;
+        Vector3f light_path = inter.coords - ray.origin;
+        inter.distance = dotProduct(light_path, light_path);
+        inter.obj = this;
+        inter.m = m;
+    }
     return inter;
 }
 
