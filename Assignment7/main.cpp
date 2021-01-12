@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 {
 
     // Change the definition here to change resolution
-    Scene scene(784, 784);
+    Scene scene(300, 300);
 
     Material* red = new Material(DIFFUSE, Vector3f(0.0f));
     red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
@@ -32,7 +32,6 @@ int main(int argc, char** argv)
     MeshTriangle right("../models/cornellbox/right.obj", green);
     MeshTriangle light_("../models/cornellbox/light.obj", light);
 
-    // all pass in poiners to register these objects in the scene
     scene.Add(&floor);
     scene.Add(&shortbox);
     scene.Add(&tallbox);

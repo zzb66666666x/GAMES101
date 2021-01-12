@@ -19,6 +19,7 @@ public:
     Vector3f operator / (const float &r) const { return Vector3f(x / r, y / r, z / r); }
 
     float norm() {return std::sqrt(x * x + y * y + z * z);}
+    float norm2() {return x*x + y*y + z*z;}
     Vector3f normalized() {
         float n = std::sqrt(x * x + y * y + z * z);
         return Vector3f(x / n, y / n, z / n);
@@ -89,24 +90,6 @@ inline Vector3f crossProduct(const Vector3f &a, const Vector3f &b)
     );
 }
 
-inline float max_element(const Vector3f& vec)
-{
-    return std::max(std::max(vec.x, vec.y), vec.z);
-}
 
-inline float min_element(const Vector3f& vec)
-{
-    return std::min(std::min(vec.x, vec.y), vec.z);
-}
-
-inline float max_element(const Vector2f& vec)
-{
-    return std::max(vec.x, vec.y);
-}
-
-inline float min_element(const Vector2f& vec)
-{
-    return std::min(vec.x, vec.y);
-}
 
 #endif //RAYTRACING_VECTOR_H
