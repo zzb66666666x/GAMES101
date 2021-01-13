@@ -41,13 +41,6 @@
 					<Add directory="D:/CodingLibs/opencv/sources/modules/stitching/include"/>
 					<Add directory="D:/CodingLibs/opencv/sources/modules/video/include"/>
 					<Add directory="D:/CodingLibs/opencv/sources/modules/gapi/include"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/backward"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../include"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include-fixed"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="D:/MinGW/TDM64GCC/bin/mingw32-make.exe -f &quot;D:/MyCode/Cpp/GAMES101/testcv/build/Makefile&quot;  VERBOSE=1 testcv"/>
@@ -80,13 +73,6 @@
 					<Add directory="D:/CodingLibs/opencv/sources/modules/stitching/include"/>
 					<Add directory="D:/CodingLibs/opencv/sources/modules/video/include"/>
 					<Add directory="D:/CodingLibs/opencv/sources/modules/gapi/include"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++/backward"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../include"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/include-fixed"/>
-					<Add directory="D:/MinGW/TDM64GCC/bin/../lib/gcc/x86_64-w64-mingw32/9.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
 					<Build command="D:/MinGW/TDM64GCC/bin/mingw32-make.exe -f &quot;D:/MyCode/Cpp/GAMES101/testcv/build/Makefile&quot;  VERBOSE=1 testcv/fast"/>

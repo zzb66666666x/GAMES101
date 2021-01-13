@@ -197,5 +197,3 @@ public:
         return m->hasEmission();
     }
 };
-
-

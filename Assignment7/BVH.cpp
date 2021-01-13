@@ -108,10 +108,12 @@ Intersection BVHAccel::Intersect(const Ray& ray) const
 Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray& ray) const
 {
     // TODO Traverse the BVH to find intersection
+    std::array<int, 3> dirisNeg = {int(ray.direction.x >0),int(ray.direction.y>0),int(ray.direction.z>0)};
+    Vector3f invDir(1.0f/ray.direction.x,1.0f/ray.direction.y,1.0f/ray.direction.z);
     if (node == nullptr){
         return Intersection();
     }
-    if (node->bounds.IntersectP(ray) == false){
+    if (node->bounds.IntersectP(ray, invDir, dirisNeg) == false){
         return Intersection();
     }
     //check if the node is leaf
