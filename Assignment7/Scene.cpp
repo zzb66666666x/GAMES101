@@ -82,9 +82,13 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
             //compute indirect light source
             //std::cout<<"check point\n";
             Vector3f wi = m->sampleHemisphere(wo, N);
-            Vector3f nextShadeColor = castRay(Ray(p, wi), depth+1);
-            L_indir = nextShadeColor * m->eval(wi, wo, N) * dotProduct(wi, N) 
-                      / m->pdf(wi,wo,N) / RussianRoulette;
+            Ray cast_out_ray(p,wi);
+            Intersection cast_ray_inter = Intersect(cast_out_ray);
+            if (cast_ray_inter.happened && !(cast_ray_inter.obj->hasEmit())){
+                Vector3f nextShadeColor = castRay(cast_out_ray, depth+1);
+                L_indir = nextShadeColor * m->eval(wi, wo, N) * dotProduct(wi, N) 
+                        / m->pdf(wi,wo,N) / RussianRoulette;
+            }
         }
         return L_dir + L_indir;
     }
